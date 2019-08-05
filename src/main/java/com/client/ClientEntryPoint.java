@@ -3,6 +3,7 @@ package com.client;
 import com.MainApp;
 import com.client.view.SessionEditController;
 import com.client.view.SessionLayoutController;
+import com.client.view.SessionNewController;
 import com.server.model.ssh.Session;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -16,6 +17,10 @@ import java.net.URL;
 
 public class ClientEntryPoint {
 
+    public static String SESSION_NEW_DIALOG_PATH = "file:C:\\work\\Shelper\\src\\main\\java\\com\\client\\view\\sessionNewDialog.fxml";
+    public static String SESSION_EDIT_DIALOG_PATH = "file:C:\\work\\Shelper\\src\\main\\java\\com\\client\\view\\sessionEditDialog.fxml";
+    public static String ROOT_LAYOUT_DIALOG_PATH = "file:C:\\work\\Shelper\\src\\main\\java\\com\\client\\view\\rootLayout.fxml";
+    public static String SESSION_LAYOUT_DIALOG_PATH = "file:C:\\work\\Shelper\\src\\main\\java\\com\\client\\view\\sessionsLayout.fxml";
     private MainApp mainApp;
     private Stage primaryStage;
     private BorderPane rootLayout;
@@ -31,7 +36,7 @@ public class ClientEntryPoint {
     public void initRootLayout() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            URL url = new URL("file:C:\\work\\Shelper\\src\\main\\java\\com\\client\\view\\rootLayout.fxml");
+            URL url = new URL(ROOT_LAYOUT_DIALOG_PATH);
             loader.setLocation(url);
             rootLayout = loader.load();
 
@@ -46,7 +51,7 @@ public class ClientEntryPoint {
     public void initSessionsLayout() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            URL url = new URL("file:C:\\work\\Shelper\\src\\main\\java\\com\\client\\view\\sessionsLayout.fxml");
+            URL url = new URL(SESSION_LAYOUT_DIALOG_PATH);
             loader.setLocation(url);
             AnchorPane sessionOverview = loader.load();
 
@@ -62,7 +67,7 @@ public class ClientEntryPoint {
     public boolean showPersonEditDialog(Session session) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            URL url = new URL("file:C:\\work\\Shelper\\src\\main\\java\\com\\client\\view\\sessionEditDialog.fxml");
+            URL url = new URL(SESSION_EDIT_DIALOG_PATH);
             loader.setLocation(url);
             AnchorPane page = loader.load();
 
@@ -81,6 +86,34 @@ public class ClientEntryPoint {
             dialogStage.showAndWait();
 
             return sessionEditController.isOkClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean showPersonNewDialog(Session session) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            URL url = new URL(SESSION_NEW_DIALOG_PATH);
+            loader.setLocation(url);
+            AnchorPane page = loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("New Session");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            SessionNewController sessionNewController = loader.getController();
+            sessionNewController.setDialogStage(dialogStage);
+            sessionNewController.setSession(session);
+            sessionNewController.setMainApp(mainApp);
+
+            dialogStage.showAndWait();
+
+            return sessionNewController.isOkClicked();
         } catch (IOException e) {
             e.printStackTrace();
             return false;

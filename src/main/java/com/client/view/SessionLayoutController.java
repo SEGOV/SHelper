@@ -75,7 +75,7 @@ public class SessionLayoutController {
     private void handleNewSession() {
         Session session = new Session();
         ClientEntryPoint clientEntryPoint = new ClientEntryPoint();
-        boolean okClicked = clientEntryPoint.showPersonEditDialog(session);
+        boolean okClicked = clientEntryPoint.showPersonNewDialog(session);
         if (okClicked) {
             mainApp.getSessionData().add(session);
             sessionTable.getSelectionModel().select(session);
