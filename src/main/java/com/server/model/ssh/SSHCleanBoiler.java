@@ -1,0 +1,84 @@
+package com.server.model.ssh;
+
+import com.jcraft.jsch.*;
+import com.jcraft.jsch.Session;
+
+import java.io.*;
+import java.net.URL;
+import java.util.Objects;
+
+public class SSHCleanBoiler {
+    private static String CLEAN_BOILER_SCRIPT_NAME = "clean_boiler.sh";
+    private static String CLEAN_BOILER_COMMAND = "sh " + CLEAN_BOILER_SCRIPT_NAME;
+    private static String CLEAN_BOILER_SCRIPT_PATH = "scripts/clean_boiler.sh";
+
+    public void executeCleanCommand() {
+        Session session;
+        try {
+            ChannelSftp sftpChannel = SSHManager.getInstance().getSFTPChannel();
+            System.out.println("CLEAN BOILER PATH: " + sftpChannel.pwd());
+            session = sftpChannel.getSession();
+
+            uploadScript(sftpChannel);
+
+            ChannelExec channelExec = (ChannelExec)session.openChannel("exec");
+            InputStream in = channelExec.getInputStream();
+
+            channelExec.setCommand("sh clean_boiler.sh");
+            channelExec.connect();
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+            String line;
+            int index = 0;
+
+            while ((line = reader.readLine()) != null)
+            {
+                System.out.println(++index + " : " + line);
+            }
+
+            channelExec.disconnect();
+            session.disconnect();
+
+            System.out.println("Done!");
+        }
+        catch(Exception e)
+        {
+            System.err.println("Error: " + e);
+        }
+    }
+
+    private void uploadScript(ChannelSftp sftpChannel) {
+        if (isScriptExist(sftpChannel)) {
+            return;
+        }
+        ClassLoader classLoader = SSHCleanBoiler.class.getClassLoader();
+        URL resource = classLoader.getResource(CLEAN_BOILER_SCRIPT_PATH);
+        if (Objects.isNull(resource)) {
+            new RuntimeException("clean_boiler.sh script missed on the programm, clean boiler function is not supported", new Throwable());
+        }
+        File script = new File(resource.getFile());
+        try {
+            sftpChannel.put(new FileInputStream(script), script.getName());
+        } catch (SftpException | FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Upload script " + script.getName() + " is SUCCESS");
+    }
+
+    private boolean isScriptExist(ChannelSftp sftpChannel) {
+        boolean isExist = true;
+        try {
+            sftpChannel.lstat(CLEAN_BOILER_SCRIPT_NAME);
+        } catch (SftpException e) {
+            if (e.id == ChannelSftp.SSH_FX_NO_SUCH_FILE) {
+                isExist = false;
+            }
+        }
+        if (isExist) {
+            System.out.println("File " + CLEAN_BOILER_SCRIPT_NAME + " exist!");
+        } else {
+            System.out.println("File " + CLEAN_BOILER_SCRIPT_NAME + " NOT exist!");
+        }
+        return isExist;
+    }
+}

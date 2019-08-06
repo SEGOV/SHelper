@@ -30,6 +30,13 @@ public interface SessionDAO {
                 @Bind("user_name") String userName,
                 @Bind("password") String password);
 
+    @SqlQuery("SELECT * FROM PUBLIC.SESSION WHERE FILE_PROTOCOL = :file_protocol AND HOST_NAME = :host_name AND PORT_NUMBER = :port_number AND USER_NAME = :user_name AND PASSWORD = :password")
+    Session getSessionByParameters(@Bind("file_protocol") String fileProtocol,
+                                   @Bind("host_name") String hostName,
+                                   @Bind("port_number") Integer portNumber,
+                                   @Bind("user_name") String userName,
+                                   @Bind("password") String password);
+
     @SqlQuery("SELECT * FROM PUBLIC.SESSION WHERE ID = :id")
     Session getById(@Bind("id") Integer id);
 
@@ -43,12 +50,12 @@ public interface SessionDAO {
             " USER_NAME = :user_name, " +
             "PASSWORD = :password " +
             "WHERE ID = :id")
-    void update(@Bind("id") String id,
-                @Bind("file_protocol") String fileProtocol,
-                @Bind("host_name") String hostName,
-                @Bind("port_number") Integer portNumber,
-                @Bind("user_name") String userName,
-                @Bind("password") String password);
+    void updateSession(@Bind("id") String id,
+                       @Bind("file_protocol") String fileProtocol,
+                       @Bind("host_name") String hostName,
+                       @Bind("port_number") Integer portNumber,
+                       @Bind("user_name") String userName,
+                       @Bind("password") String password);
 
     @SqlUpdate("DELETE FROM PUBLIC.SESSION WHERE ID = :id")
     void removeById(@Bind("id") Integer id);

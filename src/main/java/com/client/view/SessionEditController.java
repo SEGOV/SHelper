@@ -1,15 +1,13 @@
 package com.client.view;
 
-import com.MainApp;
 import com.server.model.ssh.Session;
 import com.server.service.SessionService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.apache.commons.lang3.StringUtils;
 
-public class SessionEditController {
+public class SessionEditController extends SessionController{
     @FXML
     private TextField fileProtocolTextField;
     @FXML
@@ -21,7 +19,6 @@ public class SessionEditController {
     @FXML
     private TextField passwordTextField;
 
-    private MainApp mainApp;
     private Stage dialogStage;
     private Session session;
     private boolean okClicked = false;
@@ -50,13 +47,16 @@ public class SessionEditController {
 
     @FXML
     private void handleOk() {
-        if (isInputValid()) {
+        if (isInputValid()/* & isSSHConnectionSuccess()*/) {
             session.setFileProtocol(fileProtocolTextField.getText());
             session.setHostName(hostNameTestField.getText());
             session.setPortNumber(Integer.parseInt(portNumberTextField.getText()));
             session.setUserName(userNameTextField.getText());
             session.setPassword(passwordTextField.getText());
-            SessionService.getInstance().createSession(session);
+
+            SessionService sessionService = SessionService.getInstance();
+            sessionService.updateSession(session);
+//            SessionService.getInstance().createSession(session);
 
             okClicked = true;
             dialogStage.close();
@@ -68,46 +68,12 @@ public class SessionEditController {
         dialogStage.close();
     }
 
-    private boolean isInputValid() {
-        String errorMessage = "";
-
-        if (StringUtils.isEmpty(fileProtocolTextField.getText())) {
-            errorMessage += "No valid File Protocol!\n";
-        }
-        if (StringUtils.isEmpty(hostNameTestField.getText())) {
-            errorMessage += "No valid Host Name!\n";
-        }
-        if (StringUtils.isEmpty(portNumberTextField.getText())) {
-            errorMessage += "No valid Port Number!\n";
-        }
-        if (true) {
-            try {
-                Integer.parseInt(portNumberTextField.getText());
-            } catch (NumberFormatException e) {
-                errorMessage += "No valid Port Number!\n";
-            }
-        }
-        if (StringUtils.isEmpty(userNameTextField.getText())) {
-            errorMessage += "No valid User Name!\n";
-        }
-        if (StringUtils.isEmpty(passwordTextField.getText())) {
-            errorMessage += "No valid password!\n";
-        }
-        if (errorMessage.length() == 0) {
-            return true;
-        } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.initOwner(dialogStage);
-            alert.setTitle("Invalid Fields");
-            alert.setHeaderText("Please correct invalid fields");
-            alert.setContentText(errorMessage);
-
-            alert.showAndWait();
-            return false;
-        }
-    }
-
-    public void setMainApp(MainApp mainApp) {
-        this.mainApp = mainApp;
+    private void showConnectionFailed () {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.initOwner(dialogStage);
+        alert.setTitle("Connection Failed");
+        alert.setHeaderText("Network error: Network is unreachable");
+        alert.setContentText("With this parameters connection is Filed");
+        alert.showAndWait();
     }
 }
