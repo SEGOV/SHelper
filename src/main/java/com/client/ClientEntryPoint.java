@@ -81,7 +81,6 @@ public class ClientEntryPoint {
             SessionEditController sessionEditController = loader.getController();
             sessionEditController.setDialogStage(dialogStage);
             sessionEditController.setSession(session);
-            sessionEditController.setMainApp(mainApp);
 
             dialogStage.showAndWait();
 
@@ -109,7 +108,6 @@ public class ClientEntryPoint {
             SessionNewController sessionNewController = loader.getController();
             sessionNewController.setDialogStage(dialogStage);
             sessionNewController.setSession(session);
-            sessionNewController.setMainApp(mainApp);
 
             dialogStage.showAndWait();
 
