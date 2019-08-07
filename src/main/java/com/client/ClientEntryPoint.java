@@ -33,7 +33,7 @@ public class ClientEntryPoint {
         initSessionsLayout();
     }
 
-    public void initRootLayout() {
+    private void initRootLayout() {
         try {
             FXMLLoader loader = new FXMLLoader();
             URL url = new URL(ROOT_LAYOUT_DIALOG_PATH);
@@ -49,7 +49,7 @@ public class ClientEntryPoint {
         }
     }
 
-    public void initSessionsLayout() {
+    private void initSessionsLayout() {
         try {
             FXMLLoader loader = new FXMLLoader();
             URL url = new URL(SESSION_LAYOUT_DIALOG_PATH);

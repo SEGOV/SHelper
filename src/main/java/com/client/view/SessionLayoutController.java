@@ -14,7 +14,8 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.Objects;
 
-public class SessionLayoutController {
+public class SessionLayoutController extends SessionController {
+    private MainApp mainApp;
     @FXML
     private TableView<Session> sessionTable;
     @FXML
@@ -31,8 +32,6 @@ public class SessionLayoutController {
     private Label userNameLabel;
     @FXML
     private Label passwordLabel;
-
-    private MainApp mainApp;
 
     @FXML
     private void initialize() {
