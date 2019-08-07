@@ -71,9 +71,7 @@ public class SessionController {
         }
         if (StringUtils.isEmpty(userNameTextField.getText())) {
             errorMessage += "No valid User Name!\n";
-        } else {
-
-        }
+        } 
         if (StringUtils.isEmpty(passwordTextField.getText())) {
             errorMessage += "No valid password!\n";
         }
