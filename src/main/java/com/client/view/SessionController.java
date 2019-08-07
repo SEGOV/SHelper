@@ -104,6 +104,7 @@ public class SessionController {
             showConnectionFailed();
             return false;
         }
+        showConnectionSuccess();
         return true;
     }
 
@@ -113,6 +114,14 @@ public class SessionController {
         alert.setTitle("Connection Failed");
         alert.setHeaderText("Network error: Network is unreachable");
         alert.setContentText("With this parameters connection is Filed");
+        alert.showAndWait();
+    }
+
+    private void showConnectionSuccess() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.initOwner(dialogStage);
+        alert.setTitle("Connection");
+        alert.setHeaderText("SFT Connection to Server is Success");
         alert.showAndWait();
     }
 }
