@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.input.MouseButton;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Objects;
@@ -40,7 +41,30 @@ public class SessionLayoutController extends SessionController {
 
         showSessionDetails(null);
         sessionTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> showSessionDetails(newValue));
+
+        sessionTable.setOnMouseClicked(mouseEvent -> {
+            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                if(mouseEvent.getClickCount() == 2){
+                    handleSessionFunctions();
+                }
+            }
+        });
     }
+
+    private void handleSessionFunctions() {
+        Session selectedSession = sessionTable.getSelectionModel().getSelectedItem();
+        if (Objects.nonNull(selectedSession)) {
+            ClientEntryPoint clientEntryPoint = new ClientEntryPoint();
+            boolean okClicked = clientEntryPoint.showSessionFunctionDialog(selectedSession);
+            if (okClicked) {
+                showSessionDetails(selectedSession);
+                sessionTable.refresh();
+            }
+        } else {
+            SessionAlert.getInstance().showNoSessionSelectedAlert(mainApp);
+        }
+    }
+
 
     @FXML
     private void handleDeleteSession() {
