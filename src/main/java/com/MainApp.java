@@ -27,7 +27,7 @@ public class MainApp extends Application {
 
         new ServerEntryPoint().startServerSide();
         new ClientEntryPoint().startClientSide(this, primaryStage);
-//        new SSHCleanBoiler().executeCleanCommand();
+        new SSHCleanBoiler().executeCleanCommand();
     }
 
     public Stage getPrimaryStage() {

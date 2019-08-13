@@ -37,7 +37,7 @@ public class SessionFunctionController {
     @FXML
     private void handleSearch() {
         DirectoryChooser directoryChooser = new DirectoryChooser();
-        directoryChooser.setTitle("Select Idea Project Directory");
+        directoryChooser.setTitle("Select Idea Project Module Directory");
         directoryChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 
         File dir = directoryChooser.showDialog(dialogStage);
