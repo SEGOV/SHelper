@@ -1,5 +1,6 @@
 package com.client.view;
 
+import com.server.model.ssh.SSHCleanBoiler;
 import com.server.model.ssh.Session;
 import com.server.service.SessionService;
 import javafx.fxml.FXML;
@@ -60,7 +61,9 @@ public class SessionFunctionController {
 
     @FXML
     private void handleStart() {
-        System.out.println("START function action! Session host: " + sessionService.getById(session.getId()).getHostName());
+        if (cleanBoilerCheckBox.isSelected()) {
+            new SSHCleanBoiler().executeCleanCommand();
+        }
     }
 
     @FXML
