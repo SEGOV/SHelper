@@ -9,8 +9,8 @@ import com.jcraft.jsch.SftpException;
 public class SSHManager {
 
     private static final SSHManager INSTANCE = new SSHManager();
-    private String user = "123";
-    private String password = "123";
+    private String user = "netcrk";
+    private String password = "crknet";
     private String host = "10.109.1.195";
     private int port = 22;
 
