@@ -1,10 +1,8 @@
 package com.client.view;
 
-import com.server.model.ssh.SSHCleanBoiler;
 import com.server.model.ssh.Session;
-import com.server.service.SessionService;
-import com.server.service.file.FileService;
-import com.server.service.vlidator.FunctionValidationService;
+import com.server.service.function.FunctionService;
+import com.server.service.validator.FunctionValidationService;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -12,6 +10,8 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.util.LinkedList;
+import java.util.List;
 
 public class SessionFunctionController {
     @FXML
@@ -30,11 +30,9 @@ public class SessionFunctionController {
     public Stage dialogStage;
     private boolean okClicked = false;
     private Session session;
-    private SessionService sessionService;
 
     @FXML
     private void initialize() {
-        sessionService = SessionService.getInstance();
     }
 
     @FXML
@@ -54,18 +52,17 @@ public class SessionFunctionController {
     @FXML
     private void handleStart() {
         boolean isUploadJarFunctionInputValid = new FunctionValidationService(this).isUploadJarFunctionInputValid();
-        FileService fileService = new FileService(this);
-        boolean isSelectedToUploadJarsExist = fileService.isSelectedToUploadJarsExist();
 
-        if (isUploadJarFunctionInputValid & isSelectedToUploadJarsExist) {
-            updateIfNeededSessionProjectPath();
-            fileService.renameSelectedJars();
+        if (isUploadJarFunctionInputValid) {
+            List<CheckBox> functionsList = new LinkedList();
+            functionsList.add(uploadJarsCheckBox);
+            functionsList.add(cleanBoilerCheckBox);
+            functionsList.add(restartServerCheckBox);
+            FunctionService.getInstance().executeFunctions(functionsList, this);
+
             System.out.println("ALL FINE");
         } else {
             System.out.println("BAD");
-        }
-        if (cleanBoilerCheckBox.isSelected()) {
-            new SSHCleanBoiler().executeCleanCommand();
         }
     }
 
@@ -84,22 +81,16 @@ public class SessionFunctionController {
         dialogStage.close();
     }
 
-
-    private void updateIfNeededSessionProjectPath() {
-        String sessionProjectPath = session.getProjectPath();
-        String inputProjectPath = pathToProjectsLabel.getText();
-        if (!inputProjectPath.equals(sessionProjectPath)) {
-            session.setProjectPath(pathToProjectsLabel.getText());
-            SessionService.getInstance().updateSession(session);
-        }
-    }
-
     public boolean isOkClicked() {
         return okClicked;
     }
 
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
+    }
+
+    public Session getSession() {
+        return session;
     }
 
     public void setSession(Session session) {

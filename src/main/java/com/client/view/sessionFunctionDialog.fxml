@@ -27,7 +27,7 @@
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
-            <CheckBox fx:id="uploadJarsCheckBox" mnemonicParsing="false" text="UploadJARs" GridPane.rowIndex="1" />
+            <CheckBox fx:id="uploadJarsCheckBox" mnemonicParsing="false" text="Upload Jar" GridPane.rowIndex="1" />
             <CheckBox fx:id="cleanBoilerCheckBox" mnemonicParsing="false" text="Clean Boiler" GridPane.rowIndex="2" />
             <CheckBox fx:id="restartServerCheckBox" mnemonicParsing="false" text="Restart Server" GridPane.rowIndex="3" />
          </children>

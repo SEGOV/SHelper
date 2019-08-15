@@ -1,4 +1,4 @@
-package com.server.service.vlidator;
+package com.server.service.validator;
 
 import com.client.view.SessionFunctionController;
 import javafx.scene.control.Alert;
