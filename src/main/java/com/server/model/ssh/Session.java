@@ -9,17 +9,19 @@ public class Session {
     private int portNumber;
     private String userName;
     private String password;
+    private String projectPath;
 
     public Session() {
     }
 
-    public Session(Integer id, String fileProtocol, String hostName, int portNumber, String userName, String password) {
+    public Session(Integer id, String fileProtocol, String hostName, int portNumber, String userName, String password, String projectPath) {
         this.id = id;
         this.fileProtocol = fileProtocol;
         this.hostName = hostName;
         this.portNumber = portNumber;
         this.userName = userName;
         this.password = password;
+        this.projectPath = projectPath;
     }
 
     public Integer getId() {
@@ -70,6 +72,14 @@ public class Session {
         this.password = password;
     }
 
+    public String getProjectPath() {
+        return projectPath;
+    }
+
+    public void setProjectPath(String projectPath) {
+        this.projectPath = projectPath;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -80,11 +90,12 @@ public class Session {
                 Objects.equals(fileProtocol, session.fileProtocol) &&
                 Objects.equals(hostName, session.hostName) &&
                 Objects.equals(userName, session.userName) &&
-                Objects.equals(password, session.password);
+                Objects.equals(password, session.password) &&
+                Objects.equals(projectPath, session.projectPath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, fileProtocol, hostName, portNumber, userName, password);
+        return Objects.hash(id, fileProtocol, hostName, portNumber, userName, password, projectPath);
     }
 }

@@ -22,7 +22,7 @@ public class SessionService {
 
     public void createSession(Session session) {
         SessionDAO dao = (SessionDAO) daoManager.getDao(SessionDAO.class);
-        dao.create(session.getFileProtocol(), session.getHostName(), session.getPortNumber(), session.getUserName(), session.getPassword());
+        dao.create(session.getFileProtocol(), session.getHostName(), session.getPortNumber(), session.getUserName(), session.getPassword(), session.getProjectPath());
         dao.close();
     }
 
@@ -35,14 +35,14 @@ public class SessionService {
 
     public Session getSessionByParameters(Session inputSession) {
         SessionDAO dao = (SessionDAO) daoManager.getDao(SessionDAO.class);
-        Session session = dao.getSessionByParameters(inputSession.getFileProtocol(), inputSession.getHostName(), inputSession.getPortNumber(), inputSession.getUserName(), inputSession.getPassword());
+        Session session = dao.getSessionByParameters(inputSession.getFileProtocol(), inputSession.getHostName(), inputSession.getPortNumber(), inputSession.getUserName(), inputSession.getPassword(), inputSession.getProjectPath());
         dao.close();
         return session;
     }
 
     public void updateSession (Session inputSession) {
         SessionDAO dao = (SessionDAO) daoManager.getDao(SessionDAO.class);
-        dao.updateSession(inputSession.getId().toString(), inputSession.getFileProtocol(), inputSession.getHostName(), inputSession.getPortNumber(), inputSession.getUserName(), inputSession.getPassword());
+        dao.updateSession(inputSession.getId().toString(), inputSession.getFileProtocol(), inputSession.getHostName(), inputSession.getPortNumber(), inputSession.getUserName(), inputSession.getPassword(), inputSession.getProjectPath());
         dao.close();
     }
 

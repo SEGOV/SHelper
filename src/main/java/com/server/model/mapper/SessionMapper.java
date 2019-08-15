@@ -15,6 +15,7 @@ public class SessionMapper implements ResultSetMapper<Session> {
                 resultSet.getString("HOST_NAME"),
                 resultSet.getInt("PORT_NUMBER"),
                 resultSet.getString("USER_NAME"),
-                resultSet.getString("PASSWORD"));
+                resultSet.getString("PASSWORD"),
+                resultSet.getString("PROJECT_PATH"));
     }
 }

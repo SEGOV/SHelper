@@ -5,6 +5,7 @@ import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,6 +23,10 @@ public class FileService {
     public boolean isSelectedToUploadJarsExist() {
         Stage dialogStage = sessionFunctionController.dialogStage;
         String pathToProject = sessionFunctionController.pathToProjectsLabel.getText();
+
+        if (Objects.isNull(pathToProject)) {
+            return false;
+        }
 
         Pattern regex = Pattern.compile("[^.]+$");
         Matcher matcher = regex.matcher(pathToProject);
@@ -62,19 +67,19 @@ public class FileService {
     }
 
     public void renameSelectedJars() {
-        if(sessionFunctionController.implCheckBox.isSelected()) {
+        if (sessionFunctionController.implCheckBox.isSelected()) {
             String oldImplJarFilePath = webJar.getParent();
             File newImplJarFile = new File(oldImplJarFilePath + "\\" + "telenet-" + moduleName + "-impl.jar");
-            if(!newImplJarFile.exists()) {
+            if (!newImplJarFile.exists()) {
                 newImplJarFile.delete();
             }
             webJar.renameTo(newImplJarFile); // TODO: Send event: "Rename Web jar file is success"
             implJar = newImplJarFile;
         }
-        if(sessionFunctionController.webCheckBox.isSelected()) {
+        if (sessionFunctionController.webCheckBox.isSelected()) {
             String oldWebJarFilePath = webJar.getParent();
             File newWebJarFile = new File(oldWebJarFilePath + "\\" + "telenet-" + moduleName + "-web.jar");
-            if(newWebJarFile.exists()) {
+            if (newWebJarFile.exists()) {
                 newWebJarFile.delete();
             }
             webJar.renameTo(newWebJarFile);  // TODO: Send event: "Rename Web jar file is success"

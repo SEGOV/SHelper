@@ -58,9 +58,9 @@ public class SessionFunctionController {
         boolean isSelectedToUploadJarsExist = fileService.isSelectedToUploadJarsExist();
 
         if (isUploadJarFunctionInputValid & isSelectedToUploadJarsExist) {
-            System.out.println("ALL FINE");
+            updateIfNeededSessionProjectPath();
             fileService.renameSelectedJars();
-
+            System.out.println("ALL FINE");
         } else {
             System.out.println("BAD");
         }
@@ -84,6 +84,16 @@ public class SessionFunctionController {
         dialogStage.close();
     }
 
+
+    private void updateIfNeededSessionProjectPath() {
+        String sessionProjectPath = session.getProjectPath();
+        String inputProjectPath = pathToProjectsLabel.getText();
+        if (!inputProjectPath.equals(sessionProjectPath)) {
+            session.setProjectPath(pathToProjectsLabel.getText());
+            SessionService.getInstance().updateSession(session);
+        }
+    }
+
     public boolean isOkClicked() {
         return okClicked;
     }
@@ -94,5 +104,6 @@ public class SessionFunctionController {
 
     public void setSession(Session session) {
         this.session = session;
+        pathToProjectsLabel.setText(session.getProjectPath());
     }
 }
