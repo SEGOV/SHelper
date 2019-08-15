@@ -2,7 +2,7 @@ package com.client.view;
 
 import com.server.model.ssh.Session;
 import com.server.service.function.FunctionService;
-import com.server.service.validator.FunctionValidationService;
+import com.server.service.validator.FunctionInputValidationService;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -41,9 +41,9 @@ public class SessionFunctionController {
         directoryChooser.setTitle("Select Idea Project Module Directory");
         directoryChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 
-        File dir = directoryChooser.showDialog(dialogStage);
-        if (dir != null) {
-            pathToProjectsLabel.setText(dir.getAbsolutePath());
+        File projectFile = directoryChooser.showDialog(dialogStage);
+        if (projectFile != null) {
+            pathToProjectsLabel.setText(projectFile.getAbsolutePath());
         } else {
             pathToProjectsLabel.setText(null);
         }
@@ -51,9 +51,9 @@ public class SessionFunctionController {
 
     @FXML
     private void handleStart() {
-        boolean isUploadJarFunctionInputValid = new FunctionValidationService(this).isUploadJarFunctionInputValid();
+        boolean isFunctionInputValid = new FunctionInputValidationService(this).isFunctionInputValid();
 
-        if (isUploadJarFunctionInputValid) {
+        if (isFunctionInputValid) {
             List<CheckBox> functionsList = new LinkedList();
             functionsList.add(uploadJarsCheckBox);
             functionsList.add(cleanBoilerCheckBox);

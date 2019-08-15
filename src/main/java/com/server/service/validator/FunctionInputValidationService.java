@@ -3,14 +3,14 @@ package com.server.service.validator;
 import com.client.view.SessionFunctionController;
 import javafx.scene.control.Alert;
 
-public class FunctionValidationService {
+public class FunctionInputValidationService {
     private SessionFunctionController sessionFunctionController;
 
-    public FunctionValidationService(SessionFunctionController sessionFunctionController) {
+    public FunctionInputValidationService(SessionFunctionController sessionFunctionController) {
         this.sessionFunctionController = sessionFunctionController;
     }
 
-    public boolean isUploadJarFunctionInputValid() {
+    public boolean isFunctionInputValid() {
         if (!sessionFunctionController.uploadJarsCheckBox.isSelected() & !sessionFunctionController.cleanBoilerCheckBox.isSelected() & !sessionFunctionController.restartServerCheckBox.isSelected()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initOwner(sessionFunctionController.dialogStage);
