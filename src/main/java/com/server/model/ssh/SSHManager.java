@@ -36,16 +36,6 @@ public class SSHManager {
             sftpChannel.connect();
             System.out.println("SFTP Channel created.");
             sftpChannel.cd(absoluteServerPath);
-//            System.out.println("SFTP PWD directtory: " + sftpChannel.pwd());
-//
-//            InputStream inputStream = sftpChannel.get(remoteFile);
-//
-//            try (Scanner scanner = new Scanner(new InputStreamReader(inputStream))) {
-//                while (scanner.hasNextLine()) {
-//                    String line = scanner.nextLine();
-//                    System.out.println(line);
-//                }
-//            }
         } catch (SftpException e) {
             e.printStackTrace();
         }
