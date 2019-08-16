@@ -1,6 +1,7 @@
 package com.server.service.function;
 
 import com.client.view.SessionFunctionController;
+import com.server.exception.ShelperException;
 import javafx.scene.control.CheckBox;
 
 import java.util.List;
@@ -13,9 +14,11 @@ public class FunctionService {
         return INSTANCE;
     }
 
-    public void executeFunctions(List<CheckBox> functionsList, SessionFunctionController sessionFunctionController) {
+    public void executeFunctions(List<CheckBox> functionsList, SessionFunctionController sessionFunctionController) throws ShelperException {
         FunctionFactory functionFactory = FunctionFactory.getInstance();
         List<CheckBox> activeCheckBoxFunctionsList = functionsList.stream().filter(checkBoxFunction -> checkBoxFunction.isSelected()).collect(Collectors.toList());
-        activeCheckBoxFunctionsList.forEach((function) -> functionFactory.getFunction(function.getText()).execute(sessionFunctionController));
+        for (CheckBox function : activeCheckBoxFunctionsList) {
+            functionFactory.getFunction(function.getText()).execute(sessionFunctionController);
+        }
     }
 }

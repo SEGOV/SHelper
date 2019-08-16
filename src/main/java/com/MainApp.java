@@ -2,7 +2,6 @@ package com;
 
 import com.client.ClientEntryPoint;
 import com.server.ServerEntryPoint;
-import com.server.model.ssh.SSHCleanBoiler;
 import com.server.model.ssh.Session;
 import com.server.service.SessionService;
 import javafx.application.Application;

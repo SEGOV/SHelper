@@ -1,5 +1,6 @@
 package com.client.view;
 
+import com.server.exception.ShelperException;
 import com.server.model.ssh.Session;
 import com.server.service.function.FunctionService;
 import com.server.service.validator.FunctionInputValidationService;
@@ -50,7 +51,7 @@ public class SessionFunctionController {
     }
 
     @FXML
-    private void handleStart() {
+    private void handleStart() throws ShelperException {
         boolean isFunctionInputValid = new FunctionInputValidationService(this).isFunctionInputValid();
 
         if (isFunctionInputValid) {

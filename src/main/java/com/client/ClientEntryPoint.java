@@ -62,8 +62,6 @@ public class ClientEntryPoint {
             URL url = new URL(SESSION_LAYOUT_DIALOG_PATH);
             loader.setLocation(url);
             AnchorPane sessionOverview = loader.load();
-
-            // Set sessionsLayout into center of the border rootLayout.
             rootLayout.setCenter(sessionOverview);
             SessionLayoutController sessionLayoutController = loader.getController();
             sessionLayoutController.setMainApp(mainApp);

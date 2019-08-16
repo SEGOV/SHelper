@@ -1,10 +1,10 @@
 package com.client.view;
 
+import com.client.alert.SessionAlert;
 import com.jcraft.jsch.JSchException;
 import com.server.model.ssh.SSHManager;
 import com.server.model.ssh.Session;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.StringUtils;
@@ -21,6 +21,7 @@ public class SessionController {
     @FXML
     protected TextField passwordTextField;
 
+    private SessionAlert sessionAlert = SessionAlert.getInstance();
     Stage dialogStage;
     protected Session session;
 
@@ -78,13 +79,7 @@ public class SessionController {
         if (errorMessage.length() == 0) {
             return true;
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.initOwner(dialogStage);
-            alert.setTitle("Invalid Fields");
-            alert.setHeaderText("Please correct invalid fields");
-            alert.setContentText(errorMessage);
-
-            alert.showAndWait();
+            sessionAlert.showPleaseCorrectInvalidFieldsAlert(dialogStage, errorMessage);
             return false;
         }
     }
@@ -99,27 +94,10 @@ public class SessionController {
         try {
             sshManager.getSFTPChannel();
         } catch (JSchException e) {
-            showConnectionFailed();
+            sessionAlert.showConnectionFailedWithParametersAlert(dialogStage);
             return false;
         }
-        showConnectionSuccess();
+        sessionAlert.showConnectionSuccessAlert(dialogStage);
         return true;
-    }
-
-    private void showConnectionFailed() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.initOwner(dialogStage);
-        alert.setTitle("Connection Failed");
-        alert.setHeaderText("Network error: Network is unreachable");
-        alert.setContentText("With this parameters connection is Filed");
-        alert.showAndWait();
-    }
-
-    private void showConnectionSuccess() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.initOwner(dialogStage);
-        alert.setTitle("Connection");
-        alert.setHeaderText("SFT Connection to Server is Success");
-        alert.showAndWait();
     }
 }

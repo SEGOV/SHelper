@@ -1,6 +1,8 @@
 package com.server.service.file;
 
+import com.client.alert.SessionAlert;
 import com.client.view.SessionFunctionController;
+import com.server.exception.ShelperException;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
@@ -15,17 +17,18 @@ public class FileService {
     private String moduleName;
     private File implJar;
     private File webJar;
+    SessionAlert sessionAlert = SessionAlert.getInstance();
 
     public FileService(SessionFunctionController sessionFunctionController) {
         this.sessionFunctionController = sessionFunctionController;
     }
 
-    public boolean isSelectedToUploadJarsExist() {
+    public void checkJarExist() throws ShelperException {
         Stage dialogStage = sessionFunctionController.dialogStage;
         String pathToProject = sessionFunctionController.pathToProjectsLabel.getText();
 
         if (Objects.isNull(pathToProject)) {
-            return false;
+            throw new ShelperException();
         }
 
         Pattern regex = Pattern.compile("[^.]+$");
@@ -41,12 +44,8 @@ public class FileService {
             String implJarPath = replacedPathToProject + replacedPathToImpl;
             implJar = new File(implJarPath);
             if (!implJar.exists()) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.initOwner(dialogStage);
-                alert.setTitle("Impl Jar doesn't exist");
-                alert.setHeaderText("Selected Impl Jar to upload doesn't exist in the " + pathToProject + " directory");
-                alert.showAndWait();
-                return false;
+                sessionAlert.showImplJarDoesntExistAlert(dialogStage, pathToProject);
+                throw new ShelperException("Impl Jar doesn't exist");
             }
         }
         if (sessionFunctionController.webCheckBox.isSelected()) {
@@ -55,15 +54,10 @@ public class FileService {
             String webJarPath = replacedPathToProject + replacedPathToWeb;
             webJar = new File(webJarPath);
             if (!webJar.exists()) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.initOwner(dialogStage);
-                alert.setTitle("Web Jar doesn't exist");
-                alert.setHeaderText("Selected Web Jar to upload doesn't exist in the " + pathToProject + " directory");
-                alert.showAndWait();
-                return false;
+                sessionAlert.showWebJarDoesntExistAlert(dialogStage, pathToProject);
+                throw new ShelperException("Web Jar doesn't exist");
             }
         }
-        return true;
     }
 
     public void renameSelectedJars() {
@@ -85,5 +79,13 @@ public class FileService {
             webJar.renameTo(newWebJarFile);  // TODO: Send event: "Rename Web jar file is success"
             webJar = newWebJarFile;
         }
+    }
+
+    public File getImplJar() {
+        return implJar;
+    }
+
+    public File getWebJar() {
+        return webJar;
     }
 }

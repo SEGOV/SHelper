@@ -1,10 +1,11 @@
 package com.server.service.validator;
 
+import com.client.alert.SessionAlert;
 import com.client.view.SessionFunctionController;
-import javafx.scene.control.Alert;
 
 public class FunctionInputValidationService {
     private SessionFunctionController sessionFunctionController;
+    private SessionAlert sessionAlert = SessionAlert.getInstance();
 
     public FunctionInputValidationService(SessionFunctionController sessionFunctionController) {
         this.sessionFunctionController = sessionFunctionController;
@@ -12,28 +13,16 @@ public class FunctionInputValidationService {
 
     public boolean isFunctionInputValid() {
         if (!sessionFunctionController.uploadJarsCheckBox.isSelected() & !sessionFunctionController.cleanBoilerCheckBox.isSelected() & !sessionFunctionController.restartServerCheckBox.isSelected()) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.initOwner(sessionFunctionController.dialogStage);
-            alert.setTitle("Not function is selected");
-            alert.setHeaderText("Please select function to action");
-            alert.showAndWait();
+            sessionAlert.showNotFunctionIsSelectedAlert(sessionFunctionController.dialogStage);
             return false;
         }
         if (sessionFunctionController.uploadJarsCheckBox.isSelected()) {
             boolean isPathToProjectEmpty = sessionFunctionController.pathToProjectsLabel.getText().isEmpty();
             if (isPathToProjectEmpty) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.initOwner(sessionFunctionController.dialogStage);
-                alert.setTitle("Path to project directory is empty");
-                alert.setHeaderText("Please choice path to project directory");
-                alert.showAndWait();
+                sessionAlert.showPathToProjectDirectoryIsEmptyAlert(sessionFunctionController.dialogStage);
                 return false;
             } else if (!sessionFunctionController.implCheckBox.isSelected() & !sessionFunctionController.webCheckBox.isSelected()) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.initOwner(sessionFunctionController.dialogStage);
-                alert.setTitle("No one JAR are selected");
-                alert.setHeaderText("Please choice JAR to upload");
-                alert.showAndWait();
+                sessionAlert.showNoOneJarAreSelectedAlert(sessionFunctionController.dialogStage);
                 return false;
             }
         }

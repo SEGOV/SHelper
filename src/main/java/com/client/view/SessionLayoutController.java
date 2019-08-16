@@ -2,6 +2,7 @@ package com.client.view;
 
 import com.MainApp;
 import com.client.ClientEntryPoint;
+import com.client.alert.SessionAlert;
 import com.server.model.ssh.Session;
 import com.server.service.SessionService;
 import javafx.beans.property.ReadOnlyObjectWrapper;
