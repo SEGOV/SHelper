@@ -3,7 +3,7 @@ package com.client.view;
 import com.server.exception.ShelperException;
 import com.server.model.ssh.Session;
 import com.server.service.function.FunctionService;
-import com.server.service.validator.FunctionInputValidationService;
+import com.server.service.validator.InputValidationService;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -52,7 +52,7 @@ public class SessionFunctionController {
 
     @FXML
     private void handleStart() throws ShelperException {
-        boolean isFunctionInputValid = new FunctionInputValidationService(this).isFunctionInputValid();
+        boolean isFunctionInputValid = new InputValidationService(this).isFunctionInputValid();
 
         if (isFunctionInputValid) {
             List<CheckBox> functionsList = new LinkedList();

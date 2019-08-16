@@ -2,6 +2,7 @@ package com.client.view;
 
 import com.server.model.ssh.Session;
 import com.server.service.SessionService;
+import com.server.service.validator.InputValidationService;
 import javafx.fxml.FXML;
 
 import java.util.Objects;
@@ -25,7 +26,8 @@ public class SessionEditController extends SessionController {
             Integer sessionByParametersId = sessionByParameters.getId();
             session.setId(sessionByParametersId);
         }
-        if (isInputValid() && isSSHConnectionSuccess()) {
+        boolean isInputValid = new InputValidationService(this).isInputValid();
+        if (isInputValid && isSSHConnectionSuccess()) {
             fetchSession();
             sessionService.updateSession(session);
             okClicked = true;
