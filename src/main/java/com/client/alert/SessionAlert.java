@@ -4,6 +4,8 @@ import com.MainApp;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
+import java.io.File;
+
 public class SessionAlert {
     private static final SessionAlert INSTANCE = new SessionAlert();
 
@@ -91,6 +93,23 @@ public class SessionAlert {
         alert.setTitle("Invalid Fields");
         alert.setHeaderText("Please correct invalid fields");
         alert.setContentText(errorMessage);
+        alert.showAndWait();
+    }
+
+    public void showFileNotFoundUploadJar(Stage dialogStage, File uploadedJarFile) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.initOwner(dialogStage);
+        alert.setTitle("File upload error");
+        alert.setHeaderText("Uploaded " + uploadedJarFile.getName() + "\n" +  " file not found in directory: " + "\n" + uploadedJarFile.getAbsolutePath());
+        alert.showAndWait();
+    }
+
+    public void showCanNotOverrideJarFile(Stage dialogStage, File jar) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.initOwner(dialogStage);
+        alert.setTitle("Jar file override error");
+        alert.setHeaderText("Can't override " + jar.getName() + " file on the server");
+        alert.setContentText("Please select a session in the table.");
         alert.showAndWait();
     }
 }

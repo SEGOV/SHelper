@@ -4,6 +4,7 @@ import com.client.alert.SessionAlert;
 import com.client.view.SessionFunctionController;
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSchException;
+import com.jcraft.jsch.SftpException;
 import com.server.exception.ShelperException;
 import com.server.model.ssh.SSHManager;
 import com.server.model.ssh.Session;
@@ -11,10 +12,13 @@ import com.server.service.SessionService;
 import com.server.service.file.FileService;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.Objects;
 
 public class UploadJarFunction implements Function {
     private FileService fileService;
+    private SessionAlert sessionAlert = SessionAlert.getInstance();
 
     @Override
     public void execute(SessionFunctionController sessionFunctionController) throws ShelperException {
@@ -61,27 +65,21 @@ public class UploadJarFunction implements Function {
             sftpChannel = sshManager.getSFTPChannel();
             System.out.println("sftpChannel: " + sftpChannel);
         } catch (JSchException e) {
-            SessionAlert.getInstance().showConnectionFailed(sessionFunctionController.dialogStage);
+            sessionAlert.showConnectionFailed(sessionFunctionController.dialogStage);
             e.printStackTrace();
         }
-
-//        try {
-//            System.out.println("pwd : " + sftpChannel.pwd());
-//        } catch (SftpException e) {
-//            e.printStackTrace();
-//        }
-
-
         if (Objects.nonNull(sftpChannel)) {
-//            try {
-//                sftpChannel.put(new FileInputStream(jar), jar.getName(), ChannelSftp.OVERWRITE);
-//            } catch (SftpException e) {
-//                e.printStackTrace();
-//            } catch (FileNotFoundException e) {
-//                e.printStackTrace();
-//            }
+            try {
+                sftpChannel.put(new FileInputStream(jar), jar.getName(), ChannelSftp.OVERWRITE);
+            } catch (SftpException e) {
+                sessionAlert.showCanNotOverrideJarFile(sessionFunctionController.dialogStage, jar);
+                e.printStackTrace();
+            } catch (FileNotFoundException e) {
+                sessionAlert.showFileNotFoundUploadJar(sessionFunctionController.dialogStage, jar);
+                e.printStackTrace();
+            }
         } else {
-//            SessionAlert.getInstance().showConnectionFailed(dialogStage);
+            sessionAlert.showConnectionFailed(sessionFunctionController.dialogStage);
         }
     }
 }

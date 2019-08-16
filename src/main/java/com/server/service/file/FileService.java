@@ -3,7 +3,6 @@ package com.server.service.file;
 import com.client.alert.SessionAlert;
 import com.client.view.SessionFunctionController;
 import com.server.exception.ShelperException;
-import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -17,7 +16,7 @@ public class FileService {
     private String moduleName;
     private File implJar;
     private File webJar;
-    SessionAlert sessionAlert = SessionAlert.getInstance();
+    private SessionAlert sessionAlert = SessionAlert.getInstance();
 
     public FileService(SessionFunctionController sessionFunctionController) {
         this.sessionFunctionController = sessionFunctionController;
@@ -62,12 +61,12 @@ public class FileService {
 
     public void renameSelectedJars() {
         if (sessionFunctionController.implCheckBox.isSelected()) {
-            String oldImplJarFilePath = webJar.getParent();
+            String oldImplJarFilePath = implJar.getParent();
             File newImplJarFile = new File(oldImplJarFilePath + "\\" + "telenet-" + moduleName + "-impl.jar");
             if (!newImplJarFile.exists()) {
                 newImplJarFile.delete();
             }
-            webJar.renameTo(newImplJarFile); // TODO: Send event: "Rename Web jar file is success"
+            implJar.renameTo(newImplJarFile); // TODO: Send event: "Rename Web jar file is success"
             implJar = newImplJarFile;
         }
         if (sessionFunctionController.webCheckBox.isSelected()) {
