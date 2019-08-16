@@ -92,7 +92,7 @@ public class SessionController {
         sshManager.setPassword(passwordTextField.getText());
 
         try {
-            sshManager.getSFTPChannel();
+            sshManager.getSFTPChannelHome(sshManager.SERVER_HOME_PATH);
         } catch (JSchException e) {
             sessionAlert.showConnectionFailedWithParametersAlert(dialogStage);
             return false;

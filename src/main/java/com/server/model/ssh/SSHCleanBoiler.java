@@ -19,7 +19,7 @@ public class SSHCleanBoiler {
         sshManager.fetchSSHManager(session);
         Session sftpSession;
         try {
-            ChannelSftp sftpChannel = SSHManager.getInstance().getSFTPChannel();
+            ChannelSftp sftpChannel = SSHManager.getInstance().getSFTPChannelHome(sshManager.SERVER_HOME_PATH);
             System.out.println("CLEAN BOILER PATH: " + sftpChannel.pwd());
             sftpSession = sftpChannel.getSession();
 

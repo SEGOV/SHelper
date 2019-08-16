@@ -7,6 +7,9 @@ import com.jcraft.jsch.Session;
 import com.jcraft.jsch.SftpException;
 
 public class SSHManager {
+    public static final String SERVER_HOME_PATH = "/u02/netcracker/toms/u141_dev_6300";
+    public static final String SERVER_IMPL_LIB_PATH = "/u02/netcracker/toms/u141_dev_6300/applications/NetCracker/APP-INF/lib";
+    public static final String SERVER_WEB_LIB_PATH = "/u02/netcracker/toms/u141_dev_6300/applications/NetCracker/NetCrackerWebApp/WEB-INF/lib";
 
     private static final SSHManager INSTANCE = new SSHManager();
     private String user = "netcrk";
@@ -14,14 +17,11 @@ public class SSHManager {
     private String host = "10.109.1.195";
     private int port = 22;
 
-    String remoteFile = "gsv";
-    String absoluteServerPath = "/u02/netcracker/toms/u141_dev_6300";
-
     public static SSHManager getInstance() {
         return INSTANCE;
     }
 
-    public ChannelSftp getSFTPChannel() throws JSchException {
+    public ChannelSftp getSFTPChannelHome(String serverPath) throws JSchException {
         ChannelSftp sftpChannel = null;
         try {
             JSch jsch = new JSch();
@@ -35,7 +35,7 @@ public class SSHManager {
             sftpChannel = (ChannelSftp) session.openChannel("sftp");
             sftpChannel.connect(3000);
             System.out.println("SFTP Channel created.");
-            sftpChannel.cd(absoluteServerPath);
+            sftpChannel.cd(serverPath);
         } catch (SftpException e) {
             e.printStackTrace();
         }
