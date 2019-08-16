@@ -1,5 +1,6 @@
 package com.server.model.ssh;
 
+import com.client.view.SessionFunctionController;
 import com.jcraft.jsch.*;
 import com.jcraft.jsch.Session;
 
@@ -12,16 +13,19 @@ public class SSHCleanBoiler {
     private static String CLEAN_BOILER_COMMAND = "sh " + CLEAN_BOILER_SCRIPT_NAME;
     private static String CLEAN_BOILER_SCRIPT_PATH = "scripts/clean_boiler.sh";
 
-    public void executeCleanCommand() {
-        Session session;
+    public void executeCleanCommand(SessionFunctionController sessionFunctionController) {
+        SSHManager sshManager = SSHManager.getInstance();
+        com.server.model.ssh.Session session = sessionFunctionController.getSession();
+        sshManager.fetchSSHManager(session);
+        Session sftpSession;
         try {
             ChannelSftp sftpChannel = SSHManager.getInstance().getSFTPChannel();
             System.out.println("CLEAN BOILER PATH: " + sftpChannel.pwd());
-            session = sftpChannel.getSession();
+            sftpSession = sftpChannel.getSession();
 
             uploadScript(sftpChannel);
 
-            ChannelExec channelExec = (ChannelExec)session.openChannel("exec");
+            ChannelExec channelExec = (ChannelExec)sftpSession.openChannel("exec");
             InputStream in = channelExec.getInputStream();
 
             channelExec.setCommand("sh clean_boiler.sh");
@@ -37,7 +41,7 @@ public class SSHCleanBoiler {
             }
 
             channelExec.disconnect();
-            session.disconnect();
+            sftpSession.disconnect();
 
             System.out.println("Done!");
         }

@@ -33,13 +33,20 @@ public class SSHManager {
             System.out.println("Connection established.");
             System.out.println("Crating SFTP Channel.");
             sftpChannel = (ChannelSftp) session.openChannel("sftp");
-            sftpChannel.connect();
+            sftpChannel.connect(3000);
             System.out.println("SFTP Channel created.");
             sftpChannel.cd(absoluteServerPath);
         } catch (SftpException e) {
             e.printStackTrace();
         }
         return sftpChannel;
+    }
+
+    public void fetchSSHManager(com.server.model.ssh.Session session) {
+        this.setHost(session.getHostName());
+        this.setPort(session.getPortNumber());
+        this.setUser(session.getUserName());
+        this.setPassword(session.getPassword());
     }
 
     public String getUser() {

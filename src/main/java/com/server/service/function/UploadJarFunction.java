@@ -4,17 +4,13 @@ import com.client.alert.SessionAlert;
 import com.client.view.SessionFunctionController;
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSchException;
-import com.jcraft.jsch.SftpException;
 import com.server.exception.ShelperException;
 import com.server.model.ssh.SSHManager;
 import com.server.model.ssh.Session;
 import com.server.service.SessionService;
 import com.server.service.file.FileService;
-import javafx.stage.Stage;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.Objects;
 
 public class UploadJarFunction implements Function {
@@ -48,21 +44,24 @@ public class UploadJarFunction implements Function {
         File webJar = fileService.getWebJar();
 
         if(Objects.nonNull(implJar)) {
-            upload(implJar, sessionFunctionController.dialogStage);
+            upload(implJar, sessionFunctionController);
         }
         if(Objects.nonNull(webJar)) {
-            upload(webJar, sessionFunctionController.dialogStage);
+            upload(webJar, sessionFunctionController);
         }
     }
 
-    private void upload(File jar, Stage dialogStage) {
+    private void upload(File jar, SessionFunctionController sessionFunctionController) {
+        Session session = sessionFunctionController.getSession();
+        SSHManager sshManager = SSHManager.getInstance();
+        sshManager.fetchSSHManager(session);
+
         ChannelSftp sftpChannel = null;
         try {
-            SSHManager sshManager = SSHManager.getInstance();
             sftpChannel = sshManager.getSFTPChannel();
             System.out.println("sftpChannel: " + sftpChannel);
         } catch (JSchException e) {
-            SessionAlert.getInstance().showConnectionFailed(dialogStage);
+            SessionAlert.getInstance().showConnectionFailed(sessionFunctionController.dialogStage);
             e.printStackTrace();
         }
 

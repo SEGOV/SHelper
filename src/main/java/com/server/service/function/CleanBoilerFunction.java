@@ -7,6 +7,6 @@ public class CleanBoilerFunction implements Function {
     @Override
     public void execute(SessionFunctionController sessionFunctionController) {
         System.out.println("clean boiler");
-        new SSHCleanBoiler().executeCleanCommand();
+        new SSHCleanBoiler().executeCleanCommand(sessionFunctionController);
     }
 }
