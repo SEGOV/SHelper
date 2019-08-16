@@ -1,14 +1,9 @@
 package com.client.view;
 
-import com.client.alert.SessionAlert;
-import com.jcraft.jsch.JSchException;
-import com.server.model.ssh.SSHManager;
 import com.server.model.ssh.Session;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
-import static com.server.Constants.Server.SERVER_HOME_PATH;
 
 public class SessionController {
     @FXML
@@ -22,9 +17,8 @@ public class SessionController {
     @FXML
     public TextField passwordTextField;
 
-    private SessionAlert sessionAlert = SessionAlert.getInstance();
     Stage dialogStage;
-    protected Session session;
+    Session session;
 
     @FXML
     protected void handleCancel() {
@@ -57,20 +51,7 @@ public class SessionController {
         session.setPassword(passwordTextField.getText());
     }
 
-    boolean isSSHConnectionSuccess() {
-        SSHManager sshManager = SSHManager.getInstance();
-        sshManager.setHost(hostNameTestField.getText());
-        sshManager.setPort(Integer.parseInt(portNumberTextField.getText()));
-        sshManager.setUser(userNameTextField.getText());
-        sshManager.setPassword(passwordTextField.getText());
-
-        try {
-            sshManager.getSFTPChannelHome(SERVER_HOME_PATH);
-        } catch (JSchException e) {
-            sessionAlert.showConnectionFailedWithParametersAlert(dialogStage);
-            return false;
-        }
-        sessionAlert.showConnectionSuccessAlert(dialogStage);
-        return true;
+    public Session getSession() {
+        return session;
     }
 }

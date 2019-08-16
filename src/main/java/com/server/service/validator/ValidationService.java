@@ -3,21 +3,25 @@ package com.server.service.validator;
 import com.client.alert.SessionAlert;
 import com.client.view.SessionController;
 import com.client.view.SessionFunctionController;
+import com.jcraft.jsch.JSchException;
+import com.server.model.ssh.SSHManager;
+import javafx.stage.Stage;
 import org.apache.commons.lang3.StringUtils;
 
 import static com.server.Constants.Message.*;
 import static com.server.Constants.Message.BREAK;
+import static com.server.Constants.Server.SERVER_HOME_PATH;
 
-public class InputValidationService {
+public class ValidationService {
     private SessionFunctionController sessionFunctionController;
     private SessionController sessionController;
     private SessionAlert sessionAlert = SessionAlert.getInstance();
 
-    public InputValidationService(SessionFunctionController sessionFunctionController) {
+    public ValidationService(SessionFunctionController sessionFunctionController) {
         this.sessionFunctionController = sessionFunctionController;
     }
 
-    public InputValidationService(SessionController sessionController) {
+    public ValidationService(SessionController sessionController) {
         this.sessionController = sessionController;
     }
 
@@ -69,5 +73,19 @@ public class InputValidationService {
             sessionAlert.showPleaseCorrectInvalidFieldsAlert(sessionController.getDialogStage(), errorMessage);
             return false;
         }
+    }
+
+    public boolean isSSHConnectionSuccess() {
+        Stage dialogStage = sessionController.getDialogStage();
+        SSHManager sshManager = SSHManager.getInstance();
+        sshManager.fetchSSHManager(sessionController.getSession());
+        try {
+            sshManager.getSFTPChannelHome(SERVER_HOME_PATH);
+        } catch (JSchException e) {
+            sessionAlert.showConnectionFailedWithParametersAlert(dialogStage);
+            return false;
+        }
+        sessionAlert.showConnectionSuccessAlert(dialogStage);
+        return true;
     }
 }

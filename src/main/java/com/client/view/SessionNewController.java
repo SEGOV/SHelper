@@ -1,7 +1,7 @@
 package com.client.view;
 
 import com.server.service.SessionService;
-import com.server.service.validator.InputValidationService;
+import com.server.service.validator.ValidationService;
 import javafx.fxml.FXML;
 
 public class SessionNewController extends SessionController {
@@ -17,8 +17,10 @@ public class SessionNewController extends SessionController {
 
     @FXML
     private void handleOk() {
-        boolean isInputValid = new InputValidationService(this).isInputValid();
-        if (isInputValid && isSSHConnectionSuccess()) {
+        ValidationService validationService = new ValidationService(this);
+        boolean isInputValid = validationService.isInputValid();
+        boolean isSSHConnectionSuccess = validationService.isSSHConnectionSuccess();
+        if (isInputValid && isSSHConnectionSuccess) {
             fetchSession();
             SessionService.getInstance().createSession(session);
             okClicked = true;
