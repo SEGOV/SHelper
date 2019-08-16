@@ -6,16 +6,14 @@ import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 import com.jcraft.jsch.SftpException;
 
-public class SSHManager {
-    public static final String SERVER_HOME_PATH = "/u02/netcracker/toms/u141_dev_6300";
-    public static final String SERVER_IMPL_LIB_PATH = "/u02/netcracker/toms/u141_dev_6300/applications/NetCracker/APP-INF/lib";
-    public static final String SERVER_WEB_LIB_PATH = "/u02/netcracker/toms/u141_dev_6300/applications/NetCracker/NetCrackerWebApp/WEB-INF/lib";
+import static com.server.Constants.Session.*;
 
+public class SSHManager {
     private static final SSHManager INSTANCE = new SSHManager();
-    private String user = "netcrk";
-    private String password = "crknet";
-    private String host = "10.109.1.195";
-    private int port = 22;
+    private String user;
+    private String password;
+    private String host;
+    private int port;
 
     public static SSHManager getInstance() {
         return INSTANCE;
@@ -25,15 +23,15 @@ public class SSHManager {
         ChannelSftp sftpChannel = null;
         try {
             JSch jsch = new JSch();
-            Session session = jsch.getSession(user, host, port);
+            Session session = jsch.getSession(user, host, PORT);
             session.setPassword(password);
             session.setConfig("StrictHostKeyChecking", "no");
             System.out.println("Establishing Connection...");
             session.connect();
             System.out.println("Connection established.");
             System.out.println("Crating SFTP Channel.");
-            sftpChannel = (ChannelSftp) session.openChannel("sftp");
-            sftpChannel.connect(3000);
+            sftpChannel = (ChannelSftp) session.openChannel(FILE_PROTOCOL.toLowerCase());
+            sftpChannel.connect(TIMEOUT);
             System.out.println("SFTP Channel created.");
             sftpChannel.cd(serverPath);
         } catch (SftpException e) {

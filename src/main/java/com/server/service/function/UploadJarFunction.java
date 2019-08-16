@@ -16,6 +16,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Objects;
 
+import static com.server.Constants.Server.SERVER_IMPL_LIB_PATH;
+import static com.server.Constants.Server.SERVER_WEB_LIB_PATH;
+
 public class UploadJarFunction implements Function {
     private FileService fileService;
     private SessionAlert sessionAlert = SessionAlert.getInstance();
@@ -48,10 +51,10 @@ public class UploadJarFunction implements Function {
         File webJar = fileService.getWebJar();
 
         if(Objects.nonNull(implJar)) {
-            upload(implJar, sessionFunctionController, SSHManager.SERVER_IMPL_LIB_PATH);
+            upload(implJar, sessionFunctionController, SERVER_IMPL_LIB_PATH);
         }
         if(Objects.nonNull(webJar)) {
-            upload(webJar, sessionFunctionController, SSHManager.SERVER_WEB_LIB_PATH);
+            upload(webJar, sessionFunctionController, SERVER_WEB_LIB_PATH);
         }
     }
 

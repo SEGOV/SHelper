@@ -9,6 +9,9 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.StringUtils;
 
+import static com.server.Constants.Message.*;
+import static com.server.Constants.Server.SERVER_HOME_PATH;
+
 public class SessionController {
     @FXML
     protected TextField fileProtocolTextField;
@@ -56,25 +59,25 @@ public class SessionController {
         String errorMessage = "";
 
         if (StringUtils.isEmpty(fileProtocolTextField.getText())) {
-            errorMessage += "No valid File Protocol!\n";
+            errorMessage += NO_VALID_FILE_PROTOCOL + BREAK;
         }
         if (StringUtils.isEmpty(hostNameTestField.getText())) {
-            errorMessage += "No valid Host Name!\n";
+            errorMessage += NO_VALID_HOST_NAME + BREAK;
         }
         if (StringUtils.isEmpty(portNumberTextField.getText())) {
-            errorMessage += "No valid Port Number!\n";
+            errorMessage += NO_VALID_PORT_NUMBER + BREAK;
         } else {
             try {
                 Integer.parseInt(portNumberTextField.getText());
             } catch (NumberFormatException e) {
-                errorMessage += "Only digit valid for Port Number!\n";
+                errorMessage += ONLY_DIGIT_VALID_FOR_PORT_NUMBER + BREAK;
             }
         }
         if (StringUtils.isEmpty(userNameTextField.getText())) {
-            errorMessage += "No valid User Name!\n";
+            errorMessage += NO_VALID_USER_NAME + BREAK;
         }
         if (StringUtils.isEmpty(passwordTextField.getText())) {
-            errorMessage += "No valid password!\n";
+            errorMessage += NO_VALID_PASSWORD + BREAK;
         }
         if (errorMessage.length() == 0) {
             return true;
@@ -92,7 +95,7 @@ public class SessionController {
         sshManager.setPassword(passwordTextField.getText());
 
         try {
-            sshManager.getSFTPChannelHome(sshManager.SERVER_HOME_PATH);
+            sshManager.getSFTPChannelHome(SERVER_HOME_PATH);
         } catch (JSchException e) {
             sessionAlert.showConnectionFailedWithParametersAlert(dialogStage);
             return false;

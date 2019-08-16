@@ -8,18 +8,18 @@ import java.io.*;
 import java.net.URL;
 import java.util.Objects;
 
-public class SSHCleanBoiler {
-    private static String CLEAN_BOILER_SCRIPT_NAME = "clean_boiler.sh";
-    private static String CLEAN_BOILER_COMMAND = "sh " + CLEAN_BOILER_SCRIPT_NAME;
-    private static String CLEAN_BOILER_SCRIPT_PATH = "scripts/clean_boiler.sh";
+import static com.server.Constants.Boiler.CLEAN_BOILER_SCRIPT_NAME;
+import static com.server.Constants.Boiler.CLEAN_BOILER_SCRIPT_PATH;
+import static com.server.Constants.Server.SERVER_HOME_PATH;
 
+public class SSHCleanBoiler {
     public void executeCleanCommand(SessionFunctionController sessionFunctionController) {
         SSHManager sshManager = SSHManager.getInstance();
         com.server.model.ssh.Session session = sessionFunctionController.getSession();
         sshManager.fetchSSHManager(session);
         Session sftpSession;
         try {
-            ChannelSftp sftpChannel = SSHManager.getInstance().getSFTPChannelHome(sshManager.SERVER_HOME_PATH);
+            ChannelSftp sftpChannel = SSHManager.getInstance().getSFTPChannelHome(SERVER_HOME_PATH);
             System.out.println("CLEAN BOILER PATH: " + sftpChannel.pwd());
             sftpSession = sftpChannel.getSession();
 
@@ -58,7 +58,7 @@ public class SSHCleanBoiler {
         ClassLoader classLoader = SSHCleanBoiler.class.getClassLoader();
         URL resource = classLoader.getResource(CLEAN_BOILER_SCRIPT_PATH);
         if (Objects.isNull(resource)) {
-            new RuntimeException("clean_boiler.sh script missed on the programm, clean boiler function is not supported", new Throwable());
+            new RuntimeException("clean_boiler.sh script missed on the program, clean boiler function is not supported", new Throwable());
         }
         File script = new File(resource.getFile());
         try {
