@@ -51,21 +51,23 @@ public class UploadJarFunction implements Function {
         File webJar = fileService.getWebJar();
 
         if(Objects.nonNull(implJar)) {
-            upload(implJar, sessionFunctionController, SERVER_IMPL_LIB_PATH);
+            System.out.println("Upload IMPL function commented");
+//            upload(implJar, sessionFunctionController, SERVER_IMPL_LIB_PATH);
         }
         if(Objects.nonNull(webJar)) {
-            upload(webJar, sessionFunctionController, SERVER_WEB_LIB_PATH);
+            System.out.println("Upload WEB function commented");
+//            upload(webJar, sessionFunctionController, SERVER_WEB_LIB_PATH);
         }
     }
 
-    private void upload(File jar, SessionFunctionController sessionFunctionController, String serverImplLibPath) {
+    private void upload(File jar, SessionFunctionController sessionFunctionController, String serverLibPath) {
         Session session = sessionFunctionController.getSession();
         SSHManager sshManager = SSHManager.getInstance();
         sshManager.fetchSSHManager(session);
 
         ChannelSftp sftpChannel = null;
         try {
-            sftpChannel = sshManager.getSFTPChannelHome(serverImplLibPath);
+            sftpChannel = sshManager.getSFTPChannelHome(serverLibPath);
         } catch (JSchException e) {
             sessionAlert.showConnectionFailed(sessionFunctionController.dialogStage);
             e.printStackTrace();

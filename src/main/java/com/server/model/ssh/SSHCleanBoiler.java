@@ -23,7 +23,7 @@ public class SSHCleanBoiler {
             System.out.println("CLEAN BOILER PATH: " + sftpChannel.pwd());
             sftpSession = sftpChannel.getSession();
 
-            uploadScript(sftpChannel);
+            uploadScriptIfNotExist(sftpChannel);
 
             ChannelExec channelExec = (ChannelExec)sftpSession.openChannel("exec");
             InputStream in = channelExec.getInputStream();
@@ -51,7 +51,7 @@ public class SSHCleanBoiler {
         }
     }
 
-    private void uploadScript(ChannelSftp sftpChannel) {
+    private void uploadScriptIfNotExist(ChannelSftp sftpChannel) {
         if (isScriptExist(sftpChannel)) {
             return;
         }
