@@ -19,12 +19,14 @@ public class SessionNewController extends SessionController {
     private void handleOk() {
         ValidationService validationService = new ValidationService(this);
         boolean isInputValid = validationService.isInputValid();
-        boolean isSSHConnectionSuccess = validationService.isSSHConnectionSuccess();
-        if (isInputValid && isSSHConnectionSuccess) {
+        if (isInputValid) {
             fetchSession();
-            SessionService.getInstance().createSession(session);
-            okClicked = true;
-            dialogStage.close();
+            boolean isSSHConnectionSuccess = validationService.isSSHConnectionSuccess();
+            if(isSSHConnectionSuccess) {
+                SessionService.getInstance().createSession(session);
+                okClicked = true;
+                dialogStage.close();
+            }
         }
     }
 }
