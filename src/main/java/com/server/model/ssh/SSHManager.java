@@ -23,7 +23,7 @@ public class SSHManager {
         ChannelSftp sftpChannel = null;
         try {
             JSch jsch = new JSch();
-            Session session = jsch.getSession(user, host, PORT);
+            Session session = jsch.getSession(user, host, port);
             session.setPassword(password);
             session.setConfig("StrictHostKeyChecking", "no");
             System.out.println("Establishing Connection...");
