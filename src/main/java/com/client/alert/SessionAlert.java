@@ -2,9 +2,11 @@ package com.client.alert;
 
 import com.MainApp;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.util.Optional;
 
 public class SessionAlert {
     private static final SessionAlert INSTANCE = new SessionAlert();
@@ -111,5 +113,17 @@ public class SessionAlert {
         alert.setHeaderText("Can't override " + jar.getName() + " file on the server");
         alert.setContentText("Please select a session in the table.");
         alert.showAndWait();
+    }
+
+    public boolean isConfirmExecuteFunctionsDialog(String resultQuestionToConfirmExecuteFunctionMessage) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setContentText(resultQuestionToConfirmExecuteFunctionMessage);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            return true;
+        }
+        return false;
     }
 }

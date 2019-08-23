@@ -5,9 +5,11 @@ import com.client.view.SessionController;
 import com.client.view.SessionFunctionController;
 import com.jcraft.jsch.JSchException;
 import com.server.model.ssh.SSHManager;
+import javafx.scene.control.CheckBox;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.List;
 import java.util.Objects;
 
 import static com.server.Constants.Message.*;
@@ -18,6 +20,9 @@ public class ValidationService {
     private SessionFunctionController sessionFunctionController;
     private SessionController sessionController;
     private SessionAlert sessionAlert = SessionAlert.getInstance();
+
+    public ValidationService() {
+    }
 
     public ValidationService(SessionFunctionController sessionFunctionController) {
         this.sessionFunctionController = sessionFunctionController;
@@ -89,5 +94,14 @@ public class ValidationService {
         }
         sessionAlert.showConnectionSuccessAlert(dialogStage);
         return true;
+    }
+
+    public boolean isConfirmToExecuteFunctions(List<CheckBox> activeCheckBoxFunctionsList) {
+        String confirmQuestionsMessage = TO_EXECUTE_CONFIRM_QUESTION + BREAK;
+        StringBuilder selectedFunctionsToExecuteBuilder = new StringBuilder();
+        selectedFunctionsToExecuteBuilder.append(confirmQuestionsMessage);
+        activeCheckBoxFunctionsList.forEach(function -> selectedFunctionsToExecuteBuilder.append(" - " + function.getText() + BREAK));
+        String resultQuestionToConfirmExecuteFunctionMessage = selectedFunctionsToExecuteBuilder.toString();
+        return sessionAlert.isConfirmExecuteFunctionsDialog(resultQuestionToConfirmExecuteFunctionMessage);
     }
 }

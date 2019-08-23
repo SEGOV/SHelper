@@ -28,5 +28,7 @@ public class Constants {
         String ONLY_DIGIT_VALID_FOR_PORT_NUMBER = "Only digit valid for Port Number!";
         String NO_VALID_USER_NAME = "No valid User Name!";
         String NO_VALID_PASSWORD = "No valid password!";
+
+        String TO_EXECUTE_CONFIRM_QUESTION = "Are you sure to execute these functions? ";
     }
 }
