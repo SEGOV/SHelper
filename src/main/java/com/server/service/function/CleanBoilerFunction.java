@@ -46,7 +46,6 @@ public class CleanBoilerFunction implements Function {
             sftpChannel.put(new FileInputStream(script), script.getName());
         } catch (JSchException | SftpException | FileNotFoundException e) {
             e.printStackTrace();
-            System.out.println("Upload script " + script.getName() + " is SUCCESS");
         }
     }
 

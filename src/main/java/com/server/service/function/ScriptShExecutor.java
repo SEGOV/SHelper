@@ -4,6 +4,7 @@ import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelShell;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
+import com.server.Constants;
 
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -11,12 +12,11 @@ import java.util.List;
 import java.util.Properties;
 
 public class ScriptShExecutor {
-
-    private static Session session;
-    private static ChannelShell channel;
-    private static String username;
-    private static String password;
-    private static String hostname;
+    private Session session;
+    private ChannelShell channel;
+    private String username;
+    private String password;
+    private String hostname;
 
     public ScriptShExecutor(com.server.model.ssh.Session session) {
         this.username = session.getUserName();
@@ -24,15 +24,14 @@ public class ScriptShExecutor {
         this.hostname = session.getHostName();
     }
 
-
-    private static Session getSession() {
+    private Session getSession() {
         if (session == null || !session.isConnected()) {
             session = connect(hostname, username, password);
         }
         return session;
     }
 
-    private static Channel getChannel() {
+    private Channel getChannel() {
         if (channel == null || !channel.isConnected()) {
             try {
                 channel = (ChannelShell) getSession().openChannel("shell");
@@ -44,10 +43,10 @@ public class ScriptShExecutor {
         return channel;
     }
 
-    private static Session connect(String hostname, String username, String password) {
+    private Session connect(String hostname, String username, String password) {
         JSch jSch = new JSch();
         try {
-            session = jSch.getSession(username, hostname, 22);
+            session = jSch.getSession(username, hostname, Constants.Session.PORT);
             Properties config = new Properties();
             config.put("StrictHostKeyChecking", "no");
             session.setConfig(config);
@@ -94,7 +93,7 @@ public class ScriptShExecutor {
         }
     }
 
-    private static void readChannelOutput(Channel channel) {
+    private void readChannelOutput(Channel channel) {
         byte[] buffer = new byte[1024];
         try {
             InputStream in = channel.getInputStream();
@@ -125,7 +124,7 @@ public class ScriptShExecutor {
         }
     }
 
-    public void close() {
+    private void close() {
         channel.disconnect();
         session.disconnect();
         System.out.println("Disconnected channel and session");
