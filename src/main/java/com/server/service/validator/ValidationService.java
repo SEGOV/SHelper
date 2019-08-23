@@ -8,6 +8,8 @@ import com.server.model.ssh.SSHManager;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Objects;
+
 import static com.server.Constants.Message.*;
 import static com.server.Constants.Message.BREAK;
 import static com.server.Constants.Server.SERVER_HOME_PATH;
@@ -31,8 +33,8 @@ public class ValidationService {
             return false;
         }
         if (sessionFunctionController.uploadJarsCheckBox.isSelected()) {
-            boolean isPathToProjectEmpty = sessionFunctionController.pathToProjectsLabel.getText().isEmpty();
-            if (isPathToProjectEmpty) {
+            String pathToProject = sessionFunctionController.pathToProjectsLabel.getText();
+            if (Objects.isNull(pathToProject) || pathToProject.isEmpty()) {
                 sessionAlert.showPathToProjectDirectoryIsEmptyAlert(sessionFunctionController.dialogStage);
                 return false;
             } else if (!sessionFunctionController.implCheckBox.isSelected() & !sessionFunctionController.webCheckBox.isSelected()) {
