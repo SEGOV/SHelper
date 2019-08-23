@@ -24,6 +24,21 @@ public class ScriptShExecutor {
         this.hostname = session.getHostName();
     }
 
+    public void executeCommands(List<String> commands) {
+        try {
+            Channel channel = getChannel();
+
+            System.out.println("Sending commands...");
+            sendCommands(channel, commands);
+
+            readChannelOutput(channel);
+            System.out.println("Finished sending commands!");
+        } catch (Exception e) {
+            System.out.println("An error ocurred during executeCommands: " + e);
+        }
+        close();
+    }
+
     private Session getSession() {
         if (session == null || !session.isConnected()) {
             session = connect(hostname, username, password);
@@ -59,21 +74,6 @@ public class ScriptShExecutor {
             System.out.println("An error occurred while connecting to " + hostname + ": " + e);
         }
         return session;
-    }
-
-    public void executeCommands(List<String> commands) {
-        try {
-            Channel channel = getChannel();
-
-            System.out.println("Sending commands...");
-            sendCommands(channel, commands);
-
-            readChannelOutput(channel);
-            System.out.println("Finished sending commands!");
-        } catch (Exception e) {
-            System.out.println("An error ocurred during executeCommands: " + e);
-        }
-        close();
     }
 
     private static void sendCommands(Channel channel, List<String> commands) {

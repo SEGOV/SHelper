@@ -31,7 +31,7 @@ public class CleanBoilerFunction implements Function {
 
     private void uploadScriptIfNotExist() {
         ChannelSftp sftpChannel;
-        File script = null;
+        File script;
         try {
             sftpChannel = SSHManager.getInstance().getSFTPChannel(SERVER_HOME_PATH);
             if (isScriptExist(sftpChannel)) {
