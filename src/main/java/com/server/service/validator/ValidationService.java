@@ -80,7 +80,7 @@ public class ValidationService {
         SSHManager sshManager = SSHManager.getInstance();
         sshManager.fetchSSHManager(sessionController.getSession());
         try {
-            sshManager.getSFTPChannelHome(SERVER_HOME_PATH);
+            sshManager.getSFTPChannel(SERVER_HOME_PATH);
         } catch (JSchException e) {
             sessionAlert.showConnectionFailedWithParametersAlert(dialogStage);
             return false;

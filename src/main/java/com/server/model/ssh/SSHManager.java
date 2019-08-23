@@ -19,20 +19,17 @@ public class SSHManager {
         return INSTANCE;
     }
 
-    public ChannelSftp getSFTPChannelHome(String serverPath) throws JSchException {
+    public ChannelSftp getSFTPChannel(String serverPath) throws JSchException {
         ChannelSftp sftpChannel = null;
         try {
             JSch jsch = new JSch();
             Session session = jsch.getSession(user, host, port);
             session.setPassword(password);
             session.setConfig("StrictHostKeyChecking", "no");
-            System.out.println("Establishing Connection...");
             session.connect();
-            System.out.println("Connection established.");
-            System.out.println("Crating SFTP Channel.");
+
             sftpChannel = (ChannelSftp) session.openChannel(FILE_PROTOCOL.toLowerCase());
             sftpChannel.connect(TIMEOUT);
-            System.out.println("SFTP Channel created.");
             sftpChannel.cd(serverPath);
         } catch (SftpException e) {
             e.printStackTrace();

@@ -16,9 +16,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Objects;
 
-import static com.server.Constants.Server.SERVER_IMPL_LIB_PATH;
-import static com.server.Constants.Server.SERVER_WEB_LIB_PATH;
-
 public class UploadJarFunction implements Function {
     private FileService fileService;
     private SessionAlert sessionAlert = SessionAlert.getInstance();
@@ -67,7 +64,7 @@ public class UploadJarFunction implements Function {
 
         ChannelSftp sftpChannel = null;
         try {
-            sftpChannel = sshManager.getSFTPChannelHome(serverLibPath);
+            sftpChannel = sshManager.getSFTPChannel(serverLibPath);
         } catch (JSchException e) {
             sessionAlert.showConnectionFailed(sessionFunctionController.dialogStage);
             e.printStackTrace();
