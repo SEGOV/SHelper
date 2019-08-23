@@ -10,6 +10,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -18,15 +20,15 @@ import java.net.URL;
 
 public class ClientEntryPoint {
 
-    public static String SESSION_NEW_DIALOG_PATH = "file:C:\\work\\Shelper\\src\\main\\java\\com\\client\\view\\sessionNewDialog.fxml";
-    public static String SESSION_EDIT_DIALOG_PATH = "file:C:\\work\\Shelper\\src\\main\\java\\com\\client\\view\\sessionEditDialog.fxml";
-    public static String ROOT_LAYOUT_DIALOG_PATH = "file:C:\\work\\Shelper\\src\\main\\java\\com\\client\\view\\rootLayout.fxml";
-    public static String SESSION_LAYOUT_DIALOG_PATH = "file:C:\\work\\Shelper\\src\\main\\java\\com\\client\\view\\sessionsLayout.fxml";
-    public static String SESSION_FUNCTION_DIALOG_PATH = "file:C:\\work\\Shelper\\src\\main\\java\\com\\client\\view\\sessionFunctionDialog.fxml";
+    private static String SESSION_NEW_DIALOG_PATH = "file:C:\\work\\Shelper\\src\\main\\java\\com\\client\\view\\sessionNewDialog.fxml";
+    private static String SESSION_EDIT_DIALOG_PATH = "file:C:\\work\\Shelper\\src\\main\\java\\com\\client\\view\\sessionEditDialog.fxml";
+    private static String ROOT_LAYOUT_DIALOG_PATH = "file:C:\\work\\Shelper\\src\\main\\java\\com\\client\\view\\rootLayout.fxml";
+    private static String SESSION_LAYOUT_DIALOG_PATH = "file:C:\\work\\Shelper\\src\\main\\java\\com\\client\\view\\sessionsLayout.fxml";
+    private static String SESSION_FUNCTION_DIALOG_PATH = "file:C:\\work\\Shelper\\src\\main\\java\\com\\client\\view\\sessionFunctionDialog.fxml";
 
-    public static String EDIT_SESSION = "Edit Session";
-    public static String NEW_SESSION = "New Session";
-    public static String SESSION_FUNCTIONS = "Functions";
+    private static String EDIT_SESSION = "Edit Session";
+    private static String NEW_SESSION = "New Session";
+    private static String SESSION_FUNCTIONS = "Functions";
 
     private MainApp mainApp;
     private Stage primaryStage;
@@ -72,7 +74,7 @@ public class ClientEntryPoint {
 
     public boolean showSessionFunctionDialog(Session session) {
         FXMLLoader loader = new FXMLLoader();
-        Stage dialogStage = initStage(loader, SESSION_FUNCTION_DIALOG_PATH, SESSION_FUNCTIONS);
+        Stage dialogStage = initHBoxStage(loader, SESSION_FUNCTION_DIALOG_PATH, SESSION_FUNCTIONS);
 
         SessionFunctionController sessionFunctionController = loader.getController();
         sessionFunctionController.setDialogStage(dialogStage);
@@ -85,7 +87,7 @@ public class ClientEntryPoint {
 
     public boolean showPersonEditDialog(Session session) {
         FXMLLoader loader = new FXMLLoader();
-        Stage dialogStage = initStage(loader, SESSION_EDIT_DIALOG_PATH, EDIT_SESSION);
+        Stage dialogStage = initAnchorStage(loader, SESSION_EDIT_DIALOG_PATH, EDIT_SESSION);
 
         SessionEditController sessionEditController = loader.getController();
         sessionEditController.setDialogStage(dialogStage);
@@ -98,7 +100,7 @@ public class ClientEntryPoint {
 
     public boolean showPersonNewDialog(Session session) {
         FXMLLoader loader = new FXMLLoader();
-        Stage dialogStage = initStage(loader, SESSION_NEW_DIALOG_PATH, NEW_SESSION);
+        Stage dialogStage = initAnchorStage(loader, SESSION_NEW_DIALOG_PATH, NEW_SESSION);
 
         SessionNewController sessionNewController = loader.getController();
         sessionNewController.setDialogStage(dialogStage);
@@ -109,8 +111,17 @@ public class ClientEntryPoint {
         return sessionNewController.isOkClicked();
     }
 
-    private Stage initStage(FXMLLoader loader, String url, String dialogTitle) {
+    private Stage initAnchorStage(FXMLLoader loader, String url, String dialogTitle) {
         AnchorPane page = getAnchorPaine(loader, url);
+        return createStage(page, dialogTitle);
+    }
+
+    private Stage initHBoxStage(FXMLLoader loader, String url, String dialogTitle) {
+        HBox page = getHBoxPaine(loader, url);
+        return createStage(page, dialogTitle);
+    }
+
+    private Stage createStage(Pane page, String dialogTitle) {
         Stage dialogStage = new Stage();
         dialogStage.setTitle(dialogTitle);
         dialogStage.initModality(Modality.WINDOW_MODAL);
@@ -121,7 +132,14 @@ public class ClientEntryPoint {
     }
 
     private AnchorPane getAnchorPaine(FXMLLoader loader, String urlPath) {
-        AnchorPane page = null;
+        return (AnchorPane) getPage(new AnchorPane(), loader, urlPath);
+    }
+
+    private HBox getHBoxPaine(FXMLLoader loader, String urlPath) {
+        return (HBox) getPage(new HBox(), loader, urlPath);
+    }
+
+    private Pane getPage(Pane page, FXMLLoader loader, String urlPath) {
         try {
             URL url = new URL(urlPath);
             loader.setLocation(url);

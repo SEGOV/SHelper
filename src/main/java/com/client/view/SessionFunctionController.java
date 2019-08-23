@@ -7,6 +7,7 @@ import com.server.service.validator.ValidationService;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
@@ -27,6 +28,8 @@ public class SessionFunctionController {
     public CheckBox cleanBoilerCheckBox;
     @FXML
     public CheckBox restartServerCheckBox;
+    @FXML
+    public TextArea consoleTextArea;
 
     public Stage dialogStage;
     private boolean okClicked = false;
@@ -75,6 +78,11 @@ public class SessionFunctionController {
         uploadJarsCheckBox.setSelected(false);
         cleanBoilerCheckBox.setSelected(false);
         restartServerCheckBox.setSelected(false);
+    }
+
+    @FXML
+    private void handleCleanConsole() {
+        consoleTextArea.setText("dvfdfvdfv");
     }
 
     @FXML
