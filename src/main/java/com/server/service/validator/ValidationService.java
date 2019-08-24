@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static com.server.Constants.Message.*;
-import static com.server.Constants.Message.BREAK;
+import static com.server.Constants.Message.CRLF;
 import static com.server.Constants.Server.SERVER_HOME_PATH;
 
 public class ValidationService {
@@ -54,25 +54,25 @@ public class ValidationService {
         String errorMessage = "";
 
         if (StringUtils.isEmpty(sessionController.fileProtocolTextField.getText())) {
-            errorMessage += NO_VALID_FILE_PROTOCOL + BREAK;
+            errorMessage += NO_VALID_FILE_PROTOCOL + CRLF;
         }
         if (StringUtils.isEmpty(sessionController.hostNameTestField.getText())) {
-            errorMessage += NO_VALID_HOST_NAME + BREAK;
+            errorMessage += NO_VALID_HOST_NAME + CRLF;
         }
         if (StringUtils.isEmpty(sessionController.portNumberTextField.getText())) {
-            errorMessage += NO_VALID_PORT_NUMBER + BREAK;
+            errorMessage += NO_VALID_PORT_NUMBER + CRLF;
         } else {
             try {
                 Integer.parseInt(sessionController.portNumberTextField.getText());
             } catch (NumberFormatException e) {
-                errorMessage += ONLY_DIGIT_VALID_FOR_PORT_NUMBER + BREAK;
+                errorMessage += ONLY_DIGIT_VALID_FOR_PORT_NUMBER + CRLF;
             }
         }
         if (StringUtils.isEmpty(sessionController.userNameTextField.getText())) {
-            errorMessage += NO_VALID_USER_NAME + BREAK;
+            errorMessage += NO_VALID_USER_NAME + CRLF;
         }
         if (StringUtils.isEmpty(sessionController.passwordTextField.getText())) {
-            errorMessage += NO_VALID_PASSWORD + BREAK;
+            errorMessage += NO_VALID_PASSWORD + CRLF;
         }
         if (errorMessage.length() == 0) {
             return true;
@@ -97,10 +97,10 @@ public class ValidationService {
     }
 
     public boolean isConfirmToExecuteFunctions(List<CheckBox> activeCheckBoxFunctionsList) {
-        String confirmQuestionsMessage = TO_EXECUTE_CONFIRM_QUESTION + BREAK;
+        String confirmQuestionsMessage = TO_EXECUTE_CONFIRM_QUESTION + CRLF;
         StringBuilder selectedFunctionsToExecuteBuilder = new StringBuilder();
         selectedFunctionsToExecuteBuilder.append(confirmQuestionsMessage);
-        activeCheckBoxFunctionsList.forEach(function -> selectedFunctionsToExecuteBuilder.append(" - " + function.getText() + BREAK));
+        activeCheckBoxFunctionsList.forEach(function -> selectedFunctionsToExecuteBuilder.append(" - " + function.getText() + CRLF));
         String resultQuestionToConfirmExecuteFunctionMessage = selectedFunctionsToExecuteBuilder.toString();
         return sessionAlert.isConfirmExecuteFunctionsDialog(resultQuestionToConfirmExecuteFunctionMessage);
     }

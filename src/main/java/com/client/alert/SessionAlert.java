@@ -8,6 +8,8 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.util.Optional;
 
+import static com.server.Constants.Message.CRLF;
+
 public class SessionAlert {
     private static final SessionAlert INSTANCE = new SessionAlert();
 
@@ -60,7 +62,7 @@ public class SessionAlert {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.initOwner(dialogStage);
         alert.setTitle("Impl Jar doesn't exist");
-        alert.setHeaderText("Selected Impl Jar to upload doesn't exist in the " + pathToProject + " directory");
+        alert.setHeaderText("Selected Impl Jar to upload doesn't" + CRLF + "exist in the " + pathToProject + " directory");
         alert.showAndWait();
     }
 
@@ -68,7 +70,7 @@ public class SessionAlert {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.initOwner(dialogStage);
         alert.setTitle("Web Jar doesn't exist");
-        alert.setHeaderText("Selected Web Jar to upload doesn't exist in the " + pathToProject + " directory");
+        alert.setHeaderText("Selected Web Jar to upload doesn't" + CRLF + "exist in the " + pathToProject + " directory");
         alert.showAndWait();
     }
 
@@ -102,7 +104,7 @@ public class SessionAlert {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.initOwner(dialogStage);
         alert.setTitle("File upload error");
-        alert.setHeaderText("Uploaded " + uploadedJarFile.getName() + "\n" +  " file not found in directory: " + "\n" + uploadedJarFile.getAbsolutePath());
+        alert.setHeaderText("Uploaded " + uploadedJarFile.getName() + CRLF + "file not found in directory: " + CRLF + uploadedJarFile.getAbsolutePath());
         alert.showAndWait();
     }
 

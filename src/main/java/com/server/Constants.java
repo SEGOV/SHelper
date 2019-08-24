@@ -21,7 +21,7 @@ public class Constants {
     }
 
     public interface Message {
-        String BREAK = "\n";
+        String CRLF = "\n"; //Carriage Return and Line Feed
         String NO_VALID_FILE_PROTOCOL = "No valid File Protocol!";
         String NO_VALID_HOST_NAME = "No valid Host Name!";
         String NO_VALID_PORT_NUMBER = "No valid Port Number!";
