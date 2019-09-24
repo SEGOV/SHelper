@@ -62,9 +62,9 @@ public class CleanBoilerFunction implements Function {
             }
         }
         if (isExist) {
-            sessionFunctionController.consoleAppendText("File " + CLEAN_BOILER_SCRIPT_NAME + " exist!");
+            sessionFunctionController.consoleAppendText("File " + CLEAN_BOILER_SCRIPT_NAME + " exist on the server.");
         } else {
-            sessionFunctionController.consoleAppendText("File " + CLEAN_BOILER_SCRIPT_NAME + " is NOT exist!");
+            sessionFunctionController.consoleAppendText("File " + CLEAN_BOILER_SCRIPT_NAME + " is not exist on the server!");
         }
         return isExist;
     }
