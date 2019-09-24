@@ -15,6 +15,8 @@ import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
+import static com.server.Constants.Message.CRLF;
+
 public class SessionFunctionController {
     @FXML
     public Label pathToProjectsLabel;
@@ -82,7 +84,7 @@ public class SessionFunctionController {
 
     @FXML
     private void handleCleanConsole() {
-        consoleTextArea.setText("dvfdfvdfv");
+        consoleTextArea.clear();
     }
 
     @FXML
@@ -105,5 +107,9 @@ public class SessionFunctionController {
     public void setSession(Session session) {
         this.session = session;
         pathToProjectsLabel.setText(session.getProjectPath());
+    }
+
+    public void consoleAppendText(String message) {
+        this.consoleTextArea.appendText(message + CRLF);
     }
 }

@@ -1,5 +1,6 @@
 package com.server.service.function;
 
+import com.client.view.SessionFunctionController;
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelShell;
 import com.jcraft.jsch.JSch;
@@ -17,24 +18,28 @@ public class ScriptShExecutor {
     private String username;
     private String password;
     private String hostname;
+    private String stringCommandName;
+    private SessionFunctionController functionController;
 
-    public ScriptShExecutor(com.server.model.ssh.Session session) {
+    public ScriptShExecutor(SessionFunctionController functionController) {
+        this.functionController = functionController;
+
+        com.server.model.ssh.Session session = functionController.getSession();
         this.username = session.getUserName();
         this.password = session.getPassword();
         this.hostname = session.getHostName();
     }
 
-    public void executeCommands(List<String> commands) {
+    public void executeCommands(String stringCommandName, List<String> commands) {
+        this.stringCommandName = stringCommandName;
         try {
             Channel channel = getChannel();
-
-            System.out.println("Sending commands...");
+            functionController.consoleAppendText("Sending commands...");
             sendCommands(channel, commands);
-
             readChannelOutput(channel);
-            System.out.println("Finished sending commands!");
+            functionController.consoleAppendText("Finished sending " + stringCommandName + "!");
         } catch (Exception e) {
-            System.out.println("An error ocurred during executeCommands: " + e);
+            functionController.consoleAppendText("An error ocurred during executeCommands: " + e);
         }
         close();
     }
@@ -52,7 +57,7 @@ public class ScriptShExecutor {
                 channel = (ChannelShell) getSession().openChannel("shell");
                 channel.connect();
             } catch (Exception e) {
-                System.out.println("Error while opening channel: " + e);
+                functionController.consoleAppendText("Error while opening channel: " + e);
             }
         }
         return channel;
@@ -67,29 +72,29 @@ public class ScriptShExecutor {
             session.setConfig(config);
             session.setPassword(password);
 
-            System.out.println("Connecting SSH to " + hostname + " - Please wait for few seconds... ");
+            functionController.consoleAppendText("Connecting SSH to " + hostname + " - Please wait for few seconds... ");
             session.connect();
-            System.out.println("Connected!");
+            functionController.consoleAppendText("Connected!");
         } catch (Exception e) {
-            System.out.println("An error occurred while connecting to " + hostname + ": " + e);
+            functionController.consoleAppendText("An error occurred while connecting to " + hostname + ": " + e );
         }
         return session;
     }
 
-    private static void sendCommands(Channel channel, List<String> commands) {
-
+    private void sendCommands(Channel channel, List<String> commands) {
         try {
             PrintStream out = new PrintStream(channel.getOutputStream());
 
             out.println("#!/bin/bash");
             for (String command : commands) {
                 out.println(command);
+                functionController.consoleAppendText(command);
             }
             out.println("exit");
-
+            functionController.consoleAppendText("exit");
             out.flush();
         } catch (Exception e) {
-            System.out.println("Error while sending commands: " + e);
+            functionController.consoleAppendText("Error while sending " + stringCommandName + ": " + e);
         }
     }
 
@@ -105,7 +110,7 @@ public class ScriptShExecutor {
                         break;
                     }
                     line = new String(buffer, 0, i);
-                    System.out.println(line);
+                    functionController.consoleAppendText(line);
                 }
                 if (line.contains("logout")) {
                     break;
@@ -116,18 +121,18 @@ public class ScriptShExecutor {
                 try {
                     Thread.sleep(1000);
                 } catch (Exception ee) {
-                    System.out.println(ee.getCause());
+                    functionController.consoleAppendText(ee.getCause().toString());
                 }
             }
         } catch (Exception e) {
-            System.out.println("Error while reading channel output: " + e);
+            functionController.consoleAppendText("Error while reading channel output: " + e);
         }
     }
 
     private void close() {
         channel.disconnect();
         session.disconnect();
-        System.out.println("Disconnected channel and session");
+        functionController.consoleAppendText("Disconnected channel and session");
     }
 }
 

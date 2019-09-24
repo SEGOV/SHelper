@@ -15,7 +15,7 @@
 
 <HBox xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.view.SessionFunctionController">
    <children>
-      <SplitPane dividerPositions="0.5">
+      <SplitPane dividerPositions="0.3856893542757417">
          <items>
             <AnchorPane prefHeight="300.0" prefWidth="227.0">
                <children>
@@ -68,7 +68,7 @@
                   </Label>
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+            <AnchorPane prefHeight="300.0" prefWidth="340.0">
                <children>
                   <Separator layoutY="257.0" prefWidth="200.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" />
                   <Label layoutX="14.0" layoutY="14.0" text="Console">
@@ -76,7 +76,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <TextArea fx:id="consoleTextArea" editable="false" layoutX="7.0" layoutY="35.0" prefHeight="213.0" prefWidth="200.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" />
+                  <TextArea fx:id="consoleTextArea" editable="false" layoutX="7.0" layoutY="35.0" prefHeight="213.0" prefWidth="200.0" wrapText="true" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" />
                   <Button layoutX="14.0" layoutY="261.0" mnemonicParsing="false" onAction="#handleCleanConsole" prefHeight="25.0" prefWidth="52.0" text="Clean" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="12.0" />
                </children>
             </AnchorPane>

@@ -15,6 +15,7 @@ public class Constants {
     }
 
     public interface Boiler {
+        String CLEAN_BOILER_COMMAND_NAME = "Clean Boiler";
         String CLEAN_BOILER_SCRIPT_NAME = "clean_boiler.sh";
         String CLEAN_BOILER_COMMAND = "sh " + CLEAN_BOILER_SCRIPT_NAME;
         String CLEAN_BOILER_SCRIPT_PATH = "scripts/clean_boiler.sh";
