@@ -6,6 +6,9 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.effect.Light.Distant?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -15,7 +18,7 @@
 
 <HBox xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.view.SessionFunctionController">
    <children>
-      <SplitPane dividerPositions="0.3856893542757417">
+      <SplitPane dividerPositions="0.3856893542757417" style="-fx-background-color: #3D4956;">
          <items>
             <AnchorPane prefHeight="300.0" prefWidth="227.0">
                <children>
@@ -30,14 +33,54 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label text="Functions">
+                        <Label text="Functions" textFill="WHITE">
                            <font>
-                              <Font name="System Bold" size="12.0" />
+                              <Font name="System Bold" size="14.0" />
                            </font>
+                           <effect>
+                              <Lighting>
+                                 <bumpInput>
+                                    <Shadow />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant />
+                                 </light>
+                              </Lighting>
+                           </effect>
                         </Label>
-                        <CheckBox fx:id="uploadJarsCheckBox" mnemonicParsing="false" text="Upload Jar" GridPane.rowIndex="1" />
-                        <CheckBox fx:id="cleanBoilerCheckBox" mnemonicParsing="false" text="Clean Boiler" GridPane.rowIndex="2" />
-                        <CheckBox fx:id="restartServerCheckBox" mnemonicParsing="false" text="Restart Server" GridPane.rowIndex="3" />
+                        <CheckBox fx:id="uploadJarsCheckBox" mnemonicParsing="false" text="Upload Jar" textFill="WHITE" GridPane.rowIndex="1">
+                           <effect>
+                              <Lighting>
+                                 <bumpInput>
+                                    <Shadow />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant />
+                                 </light>
+                              </Lighting>
+                           </effect></CheckBox>
+                        <CheckBox fx:id="cleanBoilerCheckBox" mnemonicParsing="false" text="Clean Boiler" textFill="WHITE" GridPane.rowIndex="2">
+                           <effect>
+                              <Lighting>
+                                 <bumpInput>
+                                    <Shadow />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant />
+                                 </light>
+                              </Lighting>
+                           </effect></CheckBox>
+                        <CheckBox fx:id="restartServerCheckBox" mnemonicParsing="false" text="Restart Server" textFill="WHITE" GridPane.rowIndex="3">
+                           <effect>
+                              <Lighting>
+                                 <bumpInput>
+                                    <Shadow />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant />
+                                 </light>
+                              </Lighting>
+                           </effect></CheckBox>
                      </children>
                   </GridPane>
                   <GridPane layoutX="15.0" layoutY="136.0" AnchorPane.bottomAnchor="180.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
@@ -49,35 +92,95 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <CheckBox fx:id="implCheckBox" mnemonicParsing="false" text="Impl" />
-                        <CheckBox fx:id="webCheckBox" mnemonicParsing="false" text="Web" GridPane.columnIndex="1" />
+                        <CheckBox fx:id="implCheckBox" mnemonicParsing="false" text="Impl" textFill="WHITE">
+                           <effect>
+                              <Lighting>
+                                 <bumpInput>
+                                    <Shadow />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant />
+                                 </light>
+                              </Lighting>
+                           </effect></CheckBox>
+                        <CheckBox fx:id="webCheckBox" mnemonicParsing="false" text="Web" textFill="WHITE" GridPane.columnIndex="1">
+                           <effect>
+                              <Lighting>
+                                 <bumpInput>
+                                    <Shadow />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant />
+                                 </light>
+                              </Lighting>
+                           </effect></CheckBox>
                      </children>
                   </GridPane>
                   <Separator layoutX="1.0" layoutY="257.0" prefWidth="200.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" />
                   <Separator layoutX="1.0" layoutY="129.0" prefWidth="200.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" />
-                  <Button layoutX="148.0" layoutY="266.0" mnemonicParsing="false" onAction="#handleCancel" prefHeight="25.0" prefWidth="52.0" text="Cancel" AnchorPane.bottomAnchor="9.0" AnchorPane.rightAnchor="12.0" />
+                  <Button layoutX="148.0" layoutY="266.0" mnemonicParsing="false" onAction="#handleCancel" prefHeight="25.0" prefWidth="52.0" text="Cancel" AnchorPane.bottomAnchor="9.0" AnchorPane.rightAnchor="8.0" />
                   <Button layoutX="81.0" layoutY="266.0" mnemonicParsing="false" onAction="#handleStart" prefHeight="25.0" prefWidth="52.0" text="Start" AnchorPane.bottomAnchor="9.0" AnchorPane.rightAnchor="82.0" />
-                  <Button layoutX="16.0" layoutY="266.0" mnemonicParsing="false" onAction="#handleClean" prefHeight="25.0" prefWidth="52.0" text="Clean" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="12.0" />
+                  <Button layoutX="16.0" layoutY="266.0" mnemonicParsing="false" onAction="#handleClean" prefHeight="25.0" prefWidth="52.0" text="Clean" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="8.0" />
                   <Button fx:id="handleSearch" layoutX="130.0" layoutY="35.0" mnemonicParsing="false" onAction="#handleSearch" prefHeight="25.0" prefWidth="52.0" text="..." AnchorPane.bottomAnchor="240.0" AnchorPane.rightAnchor="10.0" />
-                  <Label fx:id="pathToProjectsLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="73.0" textAlignment="CENTER" AnchorPane.bottomAnchor="210.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
-                  <Label layoutX="10.0" layoutY="39.0" text="Project Path" AnchorPane.bottomAnchor="240.0" />
-                  <Label layoutX="10.0" layoutY="14.0" text="JARs Uploaded" AnchorPane.bottomAnchor="270.0">
+                  <Label fx:id="pathToProjectsLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="73.0" textAlignment="CENTER" AnchorPane.bottomAnchor="210.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                     <effect>
+                        <Lighting>
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant />
+                           </light>
+                        </Lighting>
+                     </effect></Label>
+                  <Label layoutX="10.0" layoutY="39.0" text="Project Path" textFill="WHITE" AnchorPane.bottomAnchor="240.0">
+                     <effect>
+                        <Lighting>
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant />
+                           </light>
+                        </Lighting>
+                     </effect></Label>
+                  <Label layoutX="10.0" layoutY="14.0" text="Jars Uploaded" textFill="WHITE" AnchorPane.bottomAnchor="270.0" AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="10.0">
                      <font>
-                        <Font name="System Bold" size="12.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font>
+                     <effect>
+                        <Lighting>
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant />
+                           </light>
+                        </Lighting>
+                     </effect>
                   </Label>
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="300.0" prefWidth="340.0">
                <children>
                   <Separator layoutY="257.0" prefWidth="200.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" />
-                  <Label layoutX="14.0" layoutY="14.0" text="Console">
+                  <Label layoutX="14.0" layoutY="14.0" text="Console" textFill="#ffffffb5" AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="10.0">
                      <font>
-                        <Font name="System Bold" size="12.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font>
+                     <effect>
+                        <Lighting>
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant />
+                           </light>
+                        </Lighting>
+                     </effect>
                   </Label>
                   <TextArea fx:id="consoleTextArea" editable="false" layoutX="7.0" layoutY="35.0" prefHeight="213.0" prefWidth="200.0" wrapText="true" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" />
-                  <Button layoutX="14.0" layoutY="261.0" mnemonicParsing="false" onAction="#handleCleanConsole" prefHeight="25.0" prefWidth="52.0" text="Clean" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="12.0" />
+                  <Button layoutX="14.0" layoutY="261.0" mnemonicParsing="false" onAction="#handleCleanConsole" prefHeight="25.0" prefWidth="52.0" text="Clean" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="8.0" />
                </children>
             </AnchorPane>
          </items>

@@ -127,6 +127,7 @@ public class ClientEntryPoint {
         dialogStage.initModality(Modality.WINDOW_MODAL);
         dialogStage.initOwner(primaryStage);
         Scene scene = new Scene(page);
+        scene.getStylesheets().add("/style.css");
         dialogStage.setScene(scene);
         return dialogStage;
     }
