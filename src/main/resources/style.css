@@ -1,6 +1,6 @@
 .text-area {
     -fx-text-fill: white;
-    -fx-control-inner-background: black;
+    -fx-control-inner-background: #3D4956;
     -fx-highlight-fill: red;
-    -fx-highlight-text-fill: yellow;
+    -fx-highlight-text-fill: white;
 }

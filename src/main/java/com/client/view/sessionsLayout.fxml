@@ -22,8 +22,8 @@
                <children>
                   <TableView fx:id="sessionTable" prefHeight="200.0" prefWidth="110.0" style="-fx-background-color: #3D4956;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
-                      <TableColumn fx:id="hostNameColumn" prefWidth="75.0" style="-fx-background-color: #3de804;" text="Host Name" />
-                      <TableColumn fx:id="userNameColumn" prefWidth="75.0" style="-fx-background-color: #3de804;" text="User Name" />
+                      <TableColumn fx:id="hostNameColumn" prefWidth="75.0" style="-fx-background-color: #3D4956;" text="Host Name" />
+                      <TableColumn fx:id="userNameColumn" prefWidth="75.0" style="-fx-background-color: #3D4956;" text="User Name" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
