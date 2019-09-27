@@ -90,7 +90,7 @@
             <TextField fx:id="hostNameTestField" style="-fx-background-color: #536070;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <Button layoutX="232.0" layoutY="184.0" mnemonicParsing="false" onAction="#handleOk" prefHeight="25.0" prefWidth="52.0" text="OK" AnchorPane.bottomAnchor="9.0" AnchorPane.rightAnchor="72.0" />
+      <Button layoutX="232.0" layoutY="184.0" mnemonicParsing="false" onAction="#handleOk" prefHeight="25.0" prefWidth="52.0" text="OK" AnchorPane.bottomAnchor="9.0" AnchorPane.rightAnchor="68.0" />
       <Button layoutX="258.0" layoutY="184.0" mnemonicParsing="false" onAction="#handleCancel" prefHeight="25.0" prefWidth="52.0" text="Cancel" AnchorPane.bottomAnchor="9.0" AnchorPane.rightAnchor="8.0" />
    </children>
 </AnchorPane>

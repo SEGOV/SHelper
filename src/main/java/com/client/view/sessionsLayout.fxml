@@ -16,11 +16,11 @@
 
 <AnchorPane prefHeight="197.0" prefWidth="344.0" style="-fx-background-color: #3D4956;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.view.SessionLayoutController">
    <children>
-      <SplitPane dividerPositions="0.45614035087719296" layoutX="-19.0" prefHeight="197.0" prefWidth="344.0" style="-fx-background-color: #3D4956;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.4678362573099415" layoutX="-19.0" prefHeight="197.0" prefWidth="344.0" style="-fx-background-color: #3D4956;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="207.0" style="-fx-background-color: #3D4956;">
                <children>
-                  <TableView fx:id="sessionTable" prefHeight="200.0" prefWidth="110.0" style="-fx-background-color: #3D4956;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TableView fx:id="sessionTable" prefHeight="200.0" prefWidth="173.0" style="-fx-background-color: #3D4956;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
                       <TableColumn fx:id="hostNameColumn" prefWidth="75.0" style="-fx-background-color: #3D4956;" text="Host Name" />
                       <TableColumn fx:id="userNameColumn" prefWidth="75.0" style="-fx-background-color: #3D4956;" text="User Name" />
@@ -150,7 +150,7 @@
                      </children>
                   </GridPane>
                   <Button layoutX="14.0" layoutY="259.0" mnemonicParsing="false" onAction="#handleNewSession" prefHeight="25.0" prefWidth="52.0" text="New" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="8.0" />
-                  <Button layoutX="80.0" layoutY="259.0" mnemonicParsing="false" onAction="#handleEditSession" prefHeight="25.0" prefWidth="52.0" text="Edit" AnchorPane.bottomAnchor="9.0" AnchorPane.rightAnchor="70.0" />
+                  <Button layoutX="80.0" layoutY="259.0" mnemonicParsing="false" onAction="#handleEditSession" prefHeight="25.0" prefWidth="52.0" text="Edit" AnchorPane.bottomAnchor="9.0" AnchorPane.rightAnchor="68.0" />
                   <Button layoutX="146.0" layoutY="259.0" mnemonicParsing="false" onAction="#handleDeleteSession" prefHeight="25.0" prefWidth="52.0" text="Delete" AnchorPane.bottomAnchor="9.0" AnchorPane.rightAnchor="8.0" />
                </children></AnchorPane>
         </items>
