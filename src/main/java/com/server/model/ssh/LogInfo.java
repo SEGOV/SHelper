@@ -7,9 +7,6 @@ public class LogInfo {
     private String login;
     private String password;
 
-    public LogInfo() {
-    }
-
     public LogInfo(Integer id, String login, String password) {
         this.id = id;
         this.login = login;
@@ -26,10 +23,6 @@ public class LogInfo {
 
     public String getLogin() {
         return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
     }
 
     public String getPassword() {
