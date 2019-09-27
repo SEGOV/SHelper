@@ -28,7 +28,7 @@
         </rowConstraints>
          <children>
             <Label GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="fileProtocolTextField" editable="false" style="-fx-background-color: #3D4956;" GridPane.columnIndex="1" />
+            <TextField fx:id="fileProtocolTextField" editable="false" style="-fx-background-color: #3D4956; -fx-highlight-fill: null; -fx-highlight-text-fill: null;" GridPane.columnIndex="1" />
             <TextField fx:id="portNumberTextField" editable="false" style="-fx-background-color: #3D4956;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="userNameTextField" editable="false" style="-fx-background-color: #3D4956;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <PasswordField fx:id="passwordTextField" editable="false" style="-fx-background-color: #3D4956;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
