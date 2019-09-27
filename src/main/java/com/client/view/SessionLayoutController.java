@@ -32,8 +32,6 @@ public class SessionLayoutController extends SessionController {
     private Label portNumberLabel;
     @FXML
     private Label userNameLabel;
-    @FXML
-    private Label passwordLabel;
 
     @FXML
     private void initialize() {

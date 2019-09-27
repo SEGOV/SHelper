@@ -1,3 +1,7 @@
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
 .text-area {
     -fx-text-fill: white;
     -fx-control-inner-background: #3D4956;

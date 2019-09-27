@@ -8,6 +8,7 @@ import com.client.view.SessionNewController;
 import com.server.model.ssh.Session;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -26,6 +27,7 @@ public class ClientEntryPoint {
     private static String SESSION_LAYOUT_DIALOG_PATH = "file:C:\\work\\Shelper\\src\\main\\java\\com\\client\\view\\sessionsLayout.fxml";
     private static String SESSION_FUNCTION_DIALOG_PATH = "file:C:\\work\\Shelper\\src\\main\\java\\com\\client\\view\\sessionFunctionDialog.fxml";
 
+    private static String TITLE = "Shelper";
     private static String EDIT_SESSION = "Edit Session";
     private static String NEW_SESSION = "New Session";
     private static String SESSION_FUNCTIONS = "Functions";
@@ -37,7 +39,8 @@ public class ClientEntryPoint {
     public void startClientSide(MainApp mainApp, Stage primaryStage) {
         this.mainApp = mainApp;
         this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("Shelper");
+        this.primaryStage.setTitle(TITLE);
+        this.primaryStage.getIcons().add(new Image("/icons/plus.png"));
         initRootLayout();
         initSessionsLayout();
     }
@@ -75,6 +78,7 @@ public class ClientEntryPoint {
     public boolean showSessionFunctionDialog(Session session) {
         FXMLLoader loader = new FXMLLoader();
         Stage dialogStage = initHBoxStage(loader, SESSION_FUNCTION_DIALOG_PATH, SESSION_FUNCTIONS);
+        dialogStage.getIcons().add(new Image("/icons/plus.png"));
 
         SessionFunctionController sessionFunctionController = loader.getController();
         sessionFunctionController.setDialogStage(dialogStage);
@@ -88,6 +92,7 @@ public class ClientEntryPoint {
     public boolean showPersonEditDialog(Session session) {
         FXMLLoader loader = new FXMLLoader();
         Stage dialogStage = initAnchorStage(loader, SESSION_EDIT_DIALOG_PATH, EDIT_SESSION);
+        dialogStage.getIcons().add(new Image("/icons/plus.png"));
 
         SessionEditController sessionEditController = loader.getController();
         sessionEditController.setDialogStage(dialogStage);
@@ -101,6 +106,7 @@ public class ClientEntryPoint {
     public boolean showPersonNewDialog(Session session) {
         FXMLLoader loader = new FXMLLoader();
         Stage dialogStage = initAnchorStage(loader, SESSION_NEW_DIALOG_PATH, NEW_SESSION);
+        dialogStage.getIcons().add(new Image("/icons/plus.png"));
 
         SessionNewController sessionNewController = loader.getController();
         sessionNewController.setDialogStage(dialogStage);
