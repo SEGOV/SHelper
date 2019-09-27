@@ -1,6 +1,9 @@
 package com.server;
 
 public class Constants {
+    public interface Icon {
+        String PROJECT_ICON_IMAGE_PATH = "/icons/plus.png";
+    }
 
     public interface Session {
         String FILE_PROTOCOL = "SFTP";

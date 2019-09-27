@@ -19,6 +19,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 
+import static com.server.Constants.Icon.PROJECT_ICON_IMAGE_PATH;
+
 public class ClientEntryPoint {
 
     private static String SESSION_NEW_DIALOG_PATH = "file:C:\\work\\Shelper\\src\\main\\java\\com\\client\\view\\sessionNewDialog.fxml";
@@ -40,7 +42,7 @@ public class ClientEntryPoint {
         this.mainApp = mainApp;
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle(TITLE);
-        this.primaryStage.getIcons().add(new Image("/icons/plus.png"));
+        this.primaryStage.getIcons().add(new Image(PROJECT_ICON_IMAGE_PATH));
         initRootLayout();
         initSessionsLayout();
     }
@@ -78,7 +80,7 @@ public class ClientEntryPoint {
     public boolean showSessionFunctionDialog(Session session) {
         FXMLLoader loader = new FXMLLoader();
         Stage dialogStage = initHBoxStage(loader, SESSION_FUNCTION_DIALOG_PATH, SESSION_FUNCTIONS);
-        dialogStage.getIcons().add(new Image("/icons/plus.png"));
+        dialogStage.getIcons().add(new Image(PROJECT_ICON_IMAGE_PATH));
 
         SessionFunctionController sessionFunctionController = loader.getController();
         sessionFunctionController.setDialogStage(dialogStage);
@@ -92,7 +94,7 @@ public class ClientEntryPoint {
     public boolean showPersonEditDialog(Session session) {
         FXMLLoader loader = new FXMLLoader();
         Stage dialogStage = initAnchorStage(loader, SESSION_EDIT_DIALOG_PATH, EDIT_SESSION);
-        dialogStage.getIcons().add(new Image("/icons/plus.png"));
+        dialogStage.getIcons().add(new Image(PROJECT_ICON_IMAGE_PATH));
 
         SessionEditController sessionEditController = loader.getController();
         sessionEditController.setDialogStage(dialogStage);
@@ -106,7 +108,7 @@ public class ClientEntryPoint {
     public boolean showPersonNewDialog(Session session) {
         FXMLLoader loader = new FXMLLoader();
         Stage dialogStage = initAnchorStage(loader, SESSION_NEW_DIALOG_PATH, NEW_SESSION);
-        dialogStage.getIcons().add(new Image("/icons/plus.png"));
+        dialogStage.getIcons().add(new Image(PROJECT_ICON_IMAGE_PATH));
 
         SessionNewController sessionNewController = loader.getController();
         sessionNewController.setDialogStage(dialogStage);
