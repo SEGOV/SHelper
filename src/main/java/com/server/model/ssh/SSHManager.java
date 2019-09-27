@@ -28,7 +28,7 @@ public class SSHManager {
             session.setConfig("StrictHostKeyChecking", "no");
             session.connect();
 
-            sftpChannel = (ChannelSftp) session.openChannel(FILE_PROTOCOL.toLowerCase());
+            sftpChannel = (ChannelSftp) session.openChannel(SFTP_FILE_PROTOCOL.toLowerCase());
             sftpChannel.connect(TIMEOUT);
             sftpChannel.cd(serverPath);
         } catch (SftpException e) {

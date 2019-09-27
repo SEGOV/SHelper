@@ -6,7 +6,7 @@ public class Constants {
     }
 
     public interface Session {
-        String FILE_PROTOCOL = "SFTP";
+        String SFTP_FILE_PROTOCOL = "SFTP";
         Integer PORT = 22;
         Integer TIMEOUT = 3000;
     }

@@ -3,7 +3,9 @@ package com.client.view;
 import com.MainApp;
 import com.client.ClientEntryPoint;
 import com.client.alert.SessionAlert;
+import com.server.model.ssh.LogInfo;
 import com.server.model.ssh.Session;
+import com.server.service.LogInfoService;
 import com.server.service.SessionService;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.ObservableList;
@@ -15,6 +17,9 @@ import javafx.scene.input.MouseButton;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Objects;
+
+import static com.server.Constants.Session.PORT;
+import static com.server.Constants.Session.SFTP_FILE_PROTOCOL;
 
 public class SessionLayoutController extends SessionController {
     private MainApp mainApp;
@@ -96,6 +101,14 @@ public class SessionLayoutController extends SessionController {
     @FXML
     private void handleNewSession() {
         Session session = new Session();
+        session.setFileProtocol(SFTP_FILE_PROTOCOL);
+        session.setPortNumber(PORT);
+
+        LogInfo logInfo = LogInfoService.getInstance().getById(1);
+
+        session.setUserName(logInfo.getLogin());
+        session.setPassword(logInfo.getPassword());
+
         ClientEntryPoint clientEntryPoint = new ClientEntryPoint();
         boolean okClicked = clientEntryPoint.showPersonNewDialog(session);
         if (okClicked) {

@@ -28,10 +28,10 @@
         </rowConstraints>
          <children>
             <Label GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="fileProtocolTextField" style="-fx-background-color: #536070;" GridPane.columnIndex="1" />
-            <TextField fx:id="portNumberTextField" style="-fx-background-color: #536070;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="userNameTextField" style="-fx-background-color: #536070;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <PasswordField fx:id="passwordTextField" style="-fx-background-color: #536070;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="fileProtocolTextField" editable="false" style="-fx-background-color: #3D4956;" GridPane.columnIndex="1" />
+            <TextField fx:id="portNumberTextField" editable="false" style="-fx-background-color: #3D4956;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="userNameTextField" editable="false" style="-fx-background-color: #3D4956;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <PasswordField fx:id="passwordTextField" editable="false" style="-fx-background-color: #3D4956;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Label text="File Protocol" textFill="WHITE">
                <effect>
                   <Lighting>
