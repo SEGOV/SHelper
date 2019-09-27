@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
+<?import javafx.scene.control.PasswordField?>
 <AnchorPane prefHeight="213.0" prefWidth="239.0" style="-fx-background-color: #3D4956;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.view.SessionNewController">
    <children>
       <GridPane layoutX="169.0" layoutY="141.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
@@ -30,7 +31,7 @@
             <TextField fx:id="fileProtocolTextField" style="-fx-background-color: #536070;" GridPane.columnIndex="1" />
             <TextField fx:id="portNumberTextField" style="-fx-background-color: #536070;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="userNameTextField" style="-fx-background-color: #536070;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="passwordTextField" style="-fx-background-color: #536070;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <PasswordField fx:id="passwordTextField" style="-fx-background-color: #536070;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Label text="File Protocol" textFill="WHITE">
                <effect>
                   <Lighting>

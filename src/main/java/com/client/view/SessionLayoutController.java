@@ -118,13 +118,11 @@ public class SessionLayoutController extends SessionController {
             hostNameLabel.setText(session.getHostName());
             portNumberLabel.setText(String.valueOf(session.getPortNumber()));
             userNameLabel.setText(session.getUserName());
-            passwordLabel.setText(session.getPassword());
         } else {
             fileProtocolLabel.setText(StringUtils.EMPTY);
             hostNameLabel.setText(StringUtils.EMPTY);
             portNumberLabel.setText(StringUtils.EMPTY);
             userNameLabel.setText(StringUtils.EMPTY);
-            passwordLabel.setText(StringUtils.EMPTY);
         }
     }
 }
