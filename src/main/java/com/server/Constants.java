@@ -2,7 +2,7 @@ package com.server;
 
 public class Constants {
     public interface Icon {
-        String PROJECT_ICON_IMAGE_PATH = "/icons/plus.png";
+        String PROJECT_ICON_IMAGE_PATH = "/icons/plus.PNG";
     }
 
     public interface Session {
