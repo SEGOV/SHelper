@@ -123,10 +123,7 @@ public class SessionAlert {
         alert.setContentText(resultQuestionToConfirmExecuteFunctionMessage);
 
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK){
-            return true;
-        }
-        return false;
+        return result.get() == ButtonType.OK;
     }
 
     public void showSessionExistAlert(Stage dialogStage) {
