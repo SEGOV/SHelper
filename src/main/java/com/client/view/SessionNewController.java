@@ -1,5 +1,6 @@
 package com.client.view;
 
+import com.client.alert.SessionAlert;
 import com.server.service.SessionService;
 import com.server.service.validator.ValidationService;
 import javafx.fxml.FXML;
@@ -21,9 +22,15 @@ public class SessionNewController extends SessionController {
         boolean isInputValid = validationService.isInputValid();
         if (isInputValid) {
             fetchSession();
+            SessionService sessionService = SessionService.getInstance();
+            int countSessionByHostName = sessionService.getCountSessionByHostName(session.getHostName());
+            if(countSessionByHostName > 0) {
+                SessionAlert.getInstance().showSessionExistAlert(dialogStage);
+                return;
+            }
             boolean isSSHConnectionSuccess = validationService.isSSHConnectionSuccess();
             if(isSSHConnectionSuccess) {
-                SessionService.getInstance().createSession(session);
+                sessionService.createSession(session);
                 okClicked = true;
                 dialogStage.close();
             }

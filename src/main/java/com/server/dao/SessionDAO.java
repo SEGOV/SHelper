@@ -43,6 +43,9 @@ public interface SessionDAO {
     @SqlQuery("SELECT * FROM PUBLIC.SESSION WHERE ID = :id")
     Session getById(@Bind("id") Integer id);
 
+    @SqlQuery("SELECT COUNT(*) FROM PUBLIC.SESSION WHERE HOST_NAME = :host_name")
+    Integer getSessionsCountByHostName(@Bind("host_name") String hostName);
+
     @SqlQuery ("SELECT * FROM PUBLIC.SESSION")
     List<Session> getAllSessions ();
 

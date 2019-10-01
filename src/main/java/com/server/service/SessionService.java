@@ -58,4 +58,9 @@ public class SessionService {
         dao.removeById(id);
         dao.close();
     }
+
+    public int getCountSessionByHostName(String hostNumberStr) {
+        SessionDAO dao = (SessionDAO) daoManager.getDao(SessionDAO.class);
+        return dao.getSessionsCountByHostName(hostNumberStr);
+    }
 }

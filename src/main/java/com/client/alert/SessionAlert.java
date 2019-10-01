@@ -128,4 +128,12 @@ public class SessionAlert {
         }
         return false;
     }
+
+    public void showSessionExistAlert(Stage dialogStage) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.initOwner(dialogStage);
+        alert.setTitle("Session exist");
+        alert.setContentText("Session with this parameters is already exist.");
+        alert.showAndWait();
+    }
 }
