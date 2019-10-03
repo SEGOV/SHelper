@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<HBox xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.view.SessionFunctionController">
+<HBox xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.view.controller.SessionFunctionController">
    <children>
       <SplitPane dividerPositions="0.40969162995594716" prefHeight="302.0" prefWidth="456.0" style="-fx-background-color: #3D4956;">
          <items>

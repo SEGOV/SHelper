@@ -1,4 +1,4 @@
-package com.client.view;
+package com.client.view.controller;
 
 import com.MainApp;
 import com.client.ClientEntryPoint;
@@ -100,6 +100,10 @@ public class SessionLayoutController extends SessionController {
 
     @FXML
     private void handleNewSession() {
+//        sessionTable.getScene().getRoot().setDisable(Boolean.FALSE);
+//        Node lookup = sessionTable.getScene().lookup(sessionTable.getId());
+//        lookup.setDisable(true);
+//        sessionTable.getParent().getParent().getParent().setDisable(true);
         Session session = new Session();
         session.setFileProtocol(SFTP_FILE_PROTOCOL);
         session.setPortNumber(PORT);

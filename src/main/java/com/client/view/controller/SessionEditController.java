@@ -1,4 +1,4 @@
-package com.client.view;
+package com.client.view.controller;
 
 import com.server.model.ssh.Session;
 import com.server.service.SessionService;

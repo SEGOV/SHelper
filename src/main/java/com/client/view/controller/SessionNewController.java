@@ -1,4 +1,4 @@
-package com.client.view;
+package com.client.view.controller;
 
 import com.client.alert.SessionAlert;
 import com.server.service.SessionService;

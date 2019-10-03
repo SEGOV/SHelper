@@ -1,6 +1,6 @@
 package com.server.service.function;
 
-import com.client.view.SessionFunctionController;
+import com.client.view.controller.SessionFunctionController;
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.SftpException;

@@ -1,6 +1,6 @@
 package com.server.service.function;
 
-import com.client.view.SessionFunctionController;
+import com.client.view.controller.SessionFunctionController;
 
 public class RestartServerFunction implements Function {
     @Override

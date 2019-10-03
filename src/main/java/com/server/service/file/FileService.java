@@ -1,7 +1,7 @@
 package com.server.service.file;
 
 import com.client.alert.SessionAlert;
-import com.client.view.SessionFunctionController;
+import com.client.view.controller.SessionFunctionController;
 import com.server.exception.ShelperException;
 import javafx.stage.Stage;
 

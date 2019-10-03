@@ -1,10 +1,10 @@
 package com.client;
 
 import com.MainApp;
-import com.client.view.SessionEditController;
-import com.client.view.SessionFunctionController;
-import com.client.view.SessionLayoutController;
-import com.client.view.SessionNewController;
+import com.client.view.controller.SessionEditController;
+import com.client.view.controller.SessionFunctionController;
+import com.client.view.controller.SessionLayoutController;
+import com.client.view.controller.SessionNewController;
 import com.server.model.ssh.Session;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -23,11 +23,11 @@ import static com.server.Constants.Icon.PROJECT_ICON_IMAGE_PATH;
 
 public class ClientEntryPoint {
 
-    private static String SESSION_NEW_DIALOG_PATH = "file:C:\\work\\Shelper\\src\\main\\java\\com\\client\\view\\sessionNewDialog.fxml";
-    private static String SESSION_EDIT_DIALOG_PATH = "file:C:\\work\\Shelper\\src\\main\\java\\com\\client\\view\\sessionEditDialog.fxml";
-    private static String ROOT_LAYOUT_DIALOG_PATH = "file:C:\\work\\Shelper\\src\\main\\java\\com\\client\\view\\rootLayout.fxml";
-    private static String SESSION_LAYOUT_DIALOG_PATH = "file:C:\\work\\Shelper\\src\\main\\java\\com\\client\\view\\sessionsLayout.fxml";
-    private static String SESSION_FUNCTION_DIALOG_PATH = "file:C:\\work\\Shelper\\src\\main\\java\\com\\client\\view\\sessionFunctionDialog.fxml";
+    private static String SESSION_NEW_DIALOG_PATH = "file:C:\\work\\Shelper\\src\\main\\java\\com\\client\\view\\fxml\\sessionNewDialog.fxml";
+    private static String SESSION_EDIT_DIALOG_PATH = "file:C:\\work\\Shelper\\src\\main\\java\\com\\client\\view\\fxml\\sessionEditDialog.fxml";
+    private static String ROOT_LAYOUT_DIALOG_PATH = "file:C:\\work\\Shelper\\src\\main\\java\\com\\client\\view\\fxml\\rootLayout.fxml";
+    private static String SESSION_LAYOUT_DIALOG_PATH = "file:C:\\work\\Shelper\\src\\main\\java\\com\\client\\view\\fxml\\sessionsLayout.fxml";
+    private static String SESSION_FUNCTION_DIALOG_PATH = "file:C:\\work\\Shelper\\src\\main\\java\\com\\client\\view\\fxml\\sessionFunctionDialog.fxml";
 
     private static String TITLE = "Shelper";
     private static String EDIT_SESSION = "Edit Session";

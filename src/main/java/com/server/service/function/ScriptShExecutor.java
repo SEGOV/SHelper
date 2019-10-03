@@ -1,6 +1,6 @@
 package com.server.service.function;
 
-import com.client.view.SessionFunctionController;
+import com.client.view.controller.SessionFunctionController;
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelShell;
 import com.jcraft.jsch.JSch;

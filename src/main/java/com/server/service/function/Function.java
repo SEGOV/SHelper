@@ -1,6 +1,6 @@
 package com.server.service.function;
 
-import com.client.view.SessionFunctionController;
+import com.client.view.controller.SessionFunctionController;
 import com.server.exception.ShelperException;
 
 public interface Function {

@@ -1,8 +1,8 @@
 package com.server.service.validator;
 
 import com.client.alert.SessionAlert;
-import com.client.view.SessionController;
-import com.client.view.SessionFunctionController;
+import com.client.view.controller.SessionController;
+import com.client.view.controller.SessionFunctionController;
 import com.jcraft.jsch.JSchException;
 import com.server.model.ssh.SSHManager;
 import javafx.scene.control.CheckBox;
