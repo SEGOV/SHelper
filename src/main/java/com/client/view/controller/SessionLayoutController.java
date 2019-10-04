@@ -3,6 +3,7 @@ package com.client.view.controller;
 import com.MainApp;
 import com.client.ClientEntryPoint;
 import com.client.alert.SessionAlert;
+import com.server.util.ViewDisableUpdater;
 import com.server.model.ssh.LogInfo;
 import com.server.model.ssh.Session;
 import com.server.service.LogInfoService;
@@ -23,6 +24,8 @@ import static com.server.Constants.Session.SFTP_FILE_PROTOCOL;
 
 public class SessionLayoutController extends SessionController {
     private MainApp mainApp;
+    private  ViewDisableUpdater viewDisableUpdater;
+
     @FXML
     private TableView<Session> sessionTable;
     @FXML
@@ -40,6 +43,8 @@ public class SessionLayoutController extends SessionController {
 
     @FXML
     private void initialize() {
+        viewDisableUpdater = ViewDisableUpdater.getInstance();
+
         hostNameColumn.setCellValueFactory(p -> new ReadOnlyObjectWrapper(p.getValue().getHostName()));
         userNameColumn.setCellValueFactory(p -> new ReadOnlyObjectWrapper(p.getValue().getUserName()));
 
@@ -56,6 +61,8 @@ public class SessionLayoutController extends SessionController {
     }
 
     private void handleSessionFunctions() {
+        viewDisableUpdater.setDisable(sessionTable, Boolean.TRUE);
+
         Session selectedSession = sessionTable.getSelectionModel().getSelectedItem();
         if (Objects.nonNull(selectedSession)) {
             ClientEntryPoint clientEntryPoint = new ClientEntryPoint();
@@ -67,6 +74,7 @@ public class SessionLayoutController extends SessionController {
         } else {
             SessionAlert.getInstance().showNoSessionSelectedAlert(mainApp);
         }
+        viewDisableUpdater.setDisable(sessionTable, Boolean.FALSE);
     }
 
 
@@ -85,6 +93,8 @@ public class SessionLayoutController extends SessionController {
 
     @FXML
     private void handleEditSession() {
+        viewDisableUpdater.setDisable(sessionTable, Boolean.TRUE);
+
         Session selectedSession = sessionTable.getSelectionModel().getSelectedItem();
         if (selectedSession != null) {
             ClientEntryPoint clientEntryPoint = new ClientEntryPoint();
@@ -96,14 +106,13 @@ public class SessionLayoutController extends SessionController {
         } else {
             SessionAlert.getInstance().showNoSessionSelectedAlert(mainApp);
         }
+        viewDisableUpdater.setDisable(sessionTable, Boolean.FALSE);
     }
 
     @FXML
     private void handleNewSession() {
-//        sessionTable.getScene().getRoot().setDisable(Boolean.FALSE);
-//        Node lookup = sessionTable.getScene().lookup(sessionTable.getId());
-//        lookup.setDisable(true);
-//        sessionTable.getParent().getParent().getParent().setDisable(true);
+        viewDisableUpdater.setDisable(sessionTable, Boolean.TRUE);
+
         Session session = new Session();
         session.setFileProtocol(SFTP_FILE_PROTOCOL);
         session.setPortNumber(PORT);
@@ -119,6 +128,7 @@ public class SessionLayoutController extends SessionController {
             mainApp.getSessionData().add(session);
             sessionTable.getSelectionModel().select(session);
         }
+        viewDisableUpdater.setDisable(sessionTable, Boolean.FALSE);
     }
 
     public void setMainApp(MainApp mainApp) {
