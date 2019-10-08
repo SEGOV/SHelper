@@ -24,7 +24,7 @@ import static com.server.Constants.Session.SFTP_FILE_PROTOCOL;
 
 public class SessionLayoutController extends SessionController {
     private MainApp mainApp;
-    private  ViewDisableUpdater viewDisableUpdater;
+    private ViewDisableUpdater viewDisableUpdater;
 
     @FXML
     private TableView<Session> sessionTable;

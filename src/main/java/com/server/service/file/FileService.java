@@ -2,10 +2,17 @@ package com.server.service.file;
 
 import com.client.alert.SessionAlert;
 import com.client.view.controller.SessionFunctionController;
+import com.jcraft.jsch.ChannelSftp;
+import com.jcraft.jsch.JSchException;
+import com.jcraft.jsch.SftpException;
 import com.server.exception.ShelperException;
+import com.server.model.ssh.SSHManager;
+import com.server.model.ssh.Session;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,6 +27,33 @@ public class FileService {
 
     public FileService(SessionFunctionController sessionFunctionController) {
         this.sessionFunctionController = sessionFunctionController;
+    }
+
+    public void upload(File uploadFile, String serverPathToUploadFile) {
+        Session session = sessionFunctionController.getSession();
+        SSHManager sshManager = SSHManager.getInstance();
+        sshManager.fetchSSHManager(session);
+
+        ChannelSftp sftpChannel = null;
+        try {
+            sftpChannel = sshManager.getSFTPChannel(serverPathToUploadFile);
+        } catch (JSchException e) {
+            sessionAlert.showConnectionFailed(sessionFunctionController.dialogStage);
+            e.printStackTrace();
+        }
+        if (Objects.nonNull(sftpChannel)) {
+            try {
+                sftpChannel.put(new FileInputStream(uploadFile), uploadFile.getName(), ChannelSftp.OVERWRITE);
+            } catch (SftpException e) {
+                sessionAlert.showCanNotOverrideJarFile(sessionFunctionController.dialogStage, uploadFile);
+                e.printStackTrace();
+            } catch (FileNotFoundException e) {
+                sessionAlert.showFileNotFoundUploadJar(sessionFunctionController.dialogStage, uploadFile);
+                e.printStackTrace();
+            }
+        } else {
+            sessionAlert.showConnectionFailed(sessionFunctionController.dialogStage);
+        }
     }
 
     public void checkJarExist() throws ShelperException {

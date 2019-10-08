@@ -1,5 +1,8 @@
 package com.server;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Constants {
     public interface Icon {
         String PROJECT_ICON_IMAGE_PATH = "/icons/plus.PNG";
@@ -15,6 +18,7 @@ public class Constants {
         String SERVER_HOME_PATH = "/u02/netcracker/toms/u141_dev_6300";
         String SERVER_IMPL_LIB_PATH = "/u02/netcracker/toms/u141_dev_6300/applications/NetCracker/APP-INF/lib";
         String SERVER_WEB_LIB_PATH = "/u02/netcracker/toms/u141_dev_6300/applications/NetCracker/NetCrackerWebApp/WEB-INF/lib";
+        String SERVER_JSP_PATH = "/u02/netcracker/toms/u141_dev_6300/applications/NetCracker/NetCrackerWebApp/tools";
     }
 
     public interface Boiler {
@@ -22,6 +26,14 @@ public class Constants {
         String CLEAN_BOILER_SCRIPT_NAME = "clean_boiler.sh";
         String CLEAN_BOILER_COMMAND = "sh " + CLEAN_BOILER_SCRIPT_NAME;
         String CLEAN_BOILER_SCRIPT_PATH = "scripts/clean_boiler.sh";
+    }
+
+    public interface JSP {
+        String JSP = "jsp/";
+        String RBM_EXECUTOR_JSP_PATH = "RBMExecutorLite.jsp";
+        String SHOW_GRANTS_EXTENDED_LIST_JSP_PATH = "showGrantsExtendedList.jsp";
+
+        List<String> allJspList = Arrays.asList(RBM_EXECUTOR_JSP_PATH, SHOW_GRANTS_EXTENDED_LIST_JSP_PATH);
     }
 
     public interface Message {

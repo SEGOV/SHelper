@@ -76,5 +76,9 @@ public class CleanBoilerFunction implements Function {
 
         ScriptShExecutor scriptShExecutor = new ScriptShExecutor(sessionFunctionController);
         scriptShExecutor.executeCommands(CLEAN_BOILER_COMMAND_NAME, commands);
+
+
+        //TODO:
+        new UploadJspFunction().execute(sessionFunctionController);
     }
 }
