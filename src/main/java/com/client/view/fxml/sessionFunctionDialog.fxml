@@ -18,7 +18,7 @@
 
 <HBox xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.view.controller.SessionFunctionController">
    <children>
-      <SplitPane dividerPositions="0.40969162995594716" prefHeight="302.0" prefWidth="456.0" style="-fx-background-color: #3D4956;">
+      <SplitPane dividerPositions="0.40969162995594716" prefHeight="400.0" prefWidth="456.0" style="-fx-background-color: #3D4956;">
          <items>
             <AnchorPane prefHeight="300.0" prefWidth="227.0">
                <children>
@@ -27,13 +27,16 @@
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label text="Functions" textFill="WHITE">
+                        <Label text="Functions" textFill="WHITE" GridPane.rowIndex="1">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -48,7 +51,7 @@
                               </Lighting>
                            </effect>
                         </Label>
-                        <CheckBox fx:id="uploadJarsCheckBox" mnemonicParsing="false" text="Upload Jar" textFill="WHITE" GridPane.rowIndex="1">
+                        <CheckBox fx:id="uploadJarsCheckBox" mnemonicParsing="false" text="Upload Jar" textFill="WHITE" GridPane.rowIndex="4">
                            <effect>
                               <Lighting>
                                  <bumpInput>
@@ -59,7 +62,7 @@
                                  </light>
                               </Lighting>
                            </effect></CheckBox>
-                        <CheckBox fx:id="cleanBoilerCheckBox" mnemonicParsing="false" text="Clean Boiler" textFill="WHITE" GridPane.rowIndex="2">
+                        <CheckBox fx:id="cleanBoilerCheckBox" mnemonicParsing="false" text="Clean Boiler" textFill="WHITE" GridPane.rowIndex="5">
                            <effect>
                               <Lighting>
                                  <bumpInput>
@@ -70,7 +73,7 @@
                                  </light>
                               </Lighting>
                            </effect></CheckBox>
-                        <CheckBox fx:id="restartServerCheckBox" mnemonicParsing="false" text="Restart Server" textFill="WHITE" GridPane.rowIndex="3">
+                        <CheckBox fx:id="restartServerCheckBox" mnemonicParsing="false" text="Restart Server" textFill="WHITE" GridPane.rowIndex="6">
                            <effect>
                               <Lighting>
                                  <bumpInput>
@@ -81,9 +84,34 @@
                                  </light>
                               </Lighting>
                            </effect></CheckBox>
+                        <Separator prefWidth="200.0" />
+                        <CheckBox fx:id="uploadClassCheckBox" mnemonicParsing="false" text="Upload Class" textFill="WHITE" GridPane.rowIndex="3">
+                           <effect>
+                              <Lighting>
+                                 <bumpInput>
+                                    <Shadow />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant />
+                                 </light>
+                              </Lighting>
+                           </effect>
+                        </CheckBox>
+                        <CheckBox fx:id="uploadJspCheckBox" mnemonicParsing="false" text="Upload JSP" textFill="WHITE" GridPane.rowIndex="2">
+                           <effect>
+                              <Lighting>
+                                 <light>
+                                    <Light.Distant />
+                                 </light>
+                                 <bumpInput>
+                                    <Shadow />
+                                 </bumpInput>
+                              </Lighting>
+                           </effect>
+                        </CheckBox>
                      </children>
                   </GridPane>
-                  <GridPane layoutX="15.0" layoutY="136.0" AnchorPane.bottomAnchor="180.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                  <GridPane layoutX="11.0" layoutY="79.0" prefHeight="36.0" prefWidth="163.0" AnchorPane.bottomAnchor="283.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="9.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -116,13 +144,12 @@
                            </effect></CheckBox>
                      </children>
                   </GridPane>
-                  <Separator layoutX="1.0" layoutY="257.0" prefWidth="200.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" />
-                  <Separator layoutX="1.0" layoutY="129.0" prefWidth="200.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" />
+                  <Separator layoutX="8.0" layoutY="114.0" prefWidth="200.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" />
                   <Button layoutX="148.0" layoutY="266.0" mnemonicParsing="false" onAction="#handleCancel" prefHeight="25.0" prefWidth="52.0" text="Cancel" AnchorPane.bottomAnchor="9.0" AnchorPane.rightAnchor="8.0" />
                   <Button layoutX="81.0" layoutY="266.0" mnemonicParsing="false" onAction="#handleStart" prefHeight="25.0" prefWidth="52.0" text="Start" AnchorPane.bottomAnchor="9.0" AnchorPane.rightAnchor="65.0" />
                   <Button layoutX="16.0" layoutY="266.0" mnemonicParsing="false" onAction="#handleClean" prefHeight="25.0" prefWidth="52.0" text="Clean" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="8.0" />
-                  <Button fx:id="handleSearch" layoutX="130.0" layoutY="35.0" mnemonicParsing="false" onAction="#handleSearch" prefHeight="25.0" prefWidth="52.0" text="..." AnchorPane.bottomAnchor="240.0" AnchorPane.rightAnchor="10.0" />
-                  <Label fx:id="pathToProjectsLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="73.0" style="-fx-text-fill: #ffffff;" textAlignment="CENTER" AnchorPane.bottomAnchor="210.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                  <Button fx:id="handleSearch" layoutX="117.0" layoutY="30.0" mnemonicParsing="false" onAction="#handleSearch" prefHeight="25.0" prefWidth="52.0" text="..." AnchorPane.bottomAnchor="343.0" AnchorPane.rightAnchor="14.0" />
+                  <Label fx:id="pathToProjectsLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="62.0" prefHeight="17.0" prefWidth="163.0" style="-fx-text-fill: #ffffff;" textAlignment="CENTER" AnchorPane.bottomAnchor="319.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                      <effect>
                         <Lighting>
                            <bumpInput>
@@ -133,7 +160,7 @@
                            </light>
                         </Lighting>
                      </effect></Label>
-                  <Label layoutX="10.0" layoutY="39.0" text="Project Path" textFill="WHITE" AnchorPane.bottomAnchor="240.0">
+                  <Label layoutX="14.0" layoutY="34.0" prefHeight="17.0" prefWidth="64.0" text="Project Path" textFill="WHITE" AnchorPane.bottomAnchor="347.0">
                      <effect>
                         <Lighting>
                            <bumpInput>
@@ -144,7 +171,7 @@
                            </light>
                         </Lighting>
                      </effect></Label>
-                  <Label layoutX="10.0" layoutY="14.0" text="Jars Uploaded" textFill="WHITE" AnchorPane.bottomAnchor="270.0" AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="10.0">
+                  <Label layoutX="10.0" layoutY="14.0" prefHeight="20.0" prefWidth="94.0" text="Jars Uploaded" textFill="WHITE" AnchorPane.bottomAnchor="368.0" AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="10.0">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -163,7 +190,7 @@
             </AnchorPane>
             <AnchorPane prefHeight="300.0" prefWidth="340.0">
                <children>
-                  <Separator layoutY="257.0" prefWidth="200.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" />
+                  <Separator layoutX="8.0" layoutY="351.0" prefWidth="200.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" />
                   <Label layoutX="14.0" layoutY="14.0" text="Console" textFill="#ffffffb5" AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="10.0">
                      <font>
                         <Font name="System Bold" size="14.0" />
@@ -179,7 +206,7 @@
                         </Lighting>
                      </effect>
                   </Label>
-                  <TextArea fx:id="consoleTextArea" editable="false" layoutX="7.0" layoutY="35.0" prefHeight="213.0" prefWidth="200.0" wrapText="true" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" />
+                  <TextArea fx:id="consoleTextArea" editable="false" layoutX="7.0" layoutY="35.0" prefHeight="304.0" prefWidth="249.0" wrapText="true" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" />
                   <Button layoutX="14.0" layoutY="261.0" mnemonicParsing="false" onAction="#handleCleanConsole" prefHeight="25.0" prefWidth="52.0" text="Clean" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="8.0" />
                </children>
             </AnchorPane>

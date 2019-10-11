@@ -33,7 +33,11 @@ public class ValidationService {
     }
 
     public boolean isFunctionInputValid() {
-        if (!sessionFunctionController.uploadJarsCheckBox.isSelected() & !sessionFunctionController.cleanBoilerCheckBox.isSelected() & !sessionFunctionController.restartServerCheckBox.isSelected()) {
+        if (!sessionFunctionController.uploadJspCheckBox.isSelected() &
+                !sessionFunctionController.uploadClassCheckBox.isSelected() &
+                !sessionFunctionController.uploadJarsCheckBox.isSelected() &
+                !sessionFunctionController.cleanBoilerCheckBox.isSelected() &
+                !sessionFunctionController.restartServerCheckBox.isSelected()) {
             sessionAlert.showNotFunctionIsSelectedAlert(sessionFunctionController.dialogStage);
             return false;
         }

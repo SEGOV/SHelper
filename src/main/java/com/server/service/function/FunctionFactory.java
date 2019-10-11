@@ -10,7 +10,13 @@ public class FunctionFactory {
         if (functionType == null) {
             return null;
         }
-        if (functionType.equalsIgnoreCase("UPLOAD JAR")) {
+        if (functionType.equalsIgnoreCase("UPLOAD JSP")) {
+            return new UploadJspFunction();
+
+        } else if (functionType.equalsIgnoreCase("UPLOAD CLASS")) {
+//            return new UploadJarFunction();
+
+        } else if (functionType.equalsIgnoreCase("UPLOAD JAR")) {
             return new UploadJarFunction();
 
         } else if (functionType.equalsIgnoreCase("CLEAN BOILER")) {

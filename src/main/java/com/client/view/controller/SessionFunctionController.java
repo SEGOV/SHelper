@@ -16,6 +16,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static com.server.Constants.Message.CRLF;
+import static com.server.Constants.Message.EMDASH;
 
 public class SessionFunctionController {
     @FXML
@@ -24,6 +25,10 @@ public class SessionFunctionController {
     public CheckBox implCheckBox;
     @FXML
     public CheckBox webCheckBox;
+    @FXML
+    public CheckBox uploadJspCheckBox;
+    @FXML
+    public CheckBox uploadClassCheckBox;
     @FXML
     public CheckBox uploadJarsCheckBox;
     @FXML
@@ -60,7 +65,10 @@ public class SessionFunctionController {
         boolean isFunctionInputValid = new ValidationService(this).isFunctionInputValid();
 
         if (isFunctionInputValid) {
+            consoleTextArea.clear();
             List<CheckBox> functionsList = new LinkedList();
+            functionsList.add(uploadJspCheckBox);
+            functionsList.add(uploadClassCheckBox);
             functionsList.add(uploadJarsCheckBox);
             functionsList.add(cleanBoilerCheckBox);
             functionsList.add(restartServerCheckBox);
@@ -77,6 +85,8 @@ public class SessionFunctionController {
         pathToProjectsLabel.setText(null);
         implCheckBox.setSelected(false);
         webCheckBox.setSelected(false);
+        uploadJspCheckBox.setSelected(false);
+        uploadClassCheckBox.setSelected(false);
         uploadJarsCheckBox.setSelected(false);
         cleanBoilerCheckBox.setSelected(false);
         restartServerCheckBox.setSelected(false);
@@ -110,6 +120,6 @@ public class SessionFunctionController {
     }
 
     public void consoleAppendText(String message) {
-        this.consoleTextArea.appendText(message + CRLF);
+        this.consoleTextArea.appendText(message + CRLF + EMDASH + CRLF);
     }
 }
