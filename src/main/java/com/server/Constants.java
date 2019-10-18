@@ -47,5 +47,6 @@ public class Constants {
         String NO_VALID_PASSWORD = "No valid password!";
 
         String TO_EXECUTE_CONFIRM_QUESTION = "Are you sure to execute these functions? ";
+        String DRAG_AND_DROP_CLASS_FILE = "-- Drug and Drop Class File --";
     }
 }

@@ -186,6 +186,7 @@
                         </Lighting>
                      </effect>
                   </Label>
+                  <Label fx:id="drugAndDropLabel" layoutX="9.0" layoutY="133.0" onDragDropped="#handleDrop" onDragOver="#handleDragOver" prefHeight="17.0" prefWidth="163.0" text="-- Drug and Drop Class File --" textFill="WHITE" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="300.0" prefWidth="340.0">

@@ -8,15 +8,18 @@ import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.TransferMode;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
 
-import static com.server.Constants.Message.CRLF;
-import static com.server.Constants.Message.EMDASH;
+import static com.server.Constants.Message.*;
 
 public class SessionFunctionController {
     @FXML
@@ -25,6 +28,8 @@ public class SessionFunctionController {
     public CheckBox implCheckBox;
     @FXML
     public CheckBox webCheckBox;
+    @FXML
+    public Label drugAndDropLabel;
     @FXML
     public CheckBox uploadJspCheckBox;
     @FXML
@@ -58,6 +63,7 @@ public class SessionFunctionController {
         } else {
             pathToProjectsLabel.setText(null);
         }
+        drugAndDropLabel.setText(DRAG_AND_DROP_CLASS_FILE);
     }
 
     @FXML
@@ -90,6 +96,7 @@ public class SessionFunctionController {
         uploadJarsCheckBox.setSelected(false);
         cleanBoilerCheckBox.setSelected(false);
         restartServerCheckBox.setSelected(false);
+        drugAndDropLabel.setText(DRAG_AND_DROP_CLASS_FILE);
     }
 
     @FXML
@@ -121,5 +128,19 @@ public class SessionFunctionController {
 
     public void consoleAppendText(String message) {
         this.consoleTextArea.appendText(message + CRLF + EMDASH + CRLF);
+    }
+
+    public void handleDragOver(DragEvent event) {
+        if(event.getDragboard().hasFiles()) {
+            event.acceptTransferModes(TransferMode.ANY);
+        }
+    }
+
+    public void handleDrop(DragEvent event) throws FileNotFoundException {
+        event.acceptTransferModes(TransferMode.ANY);
+        File file = event.getDragboard().getFiles().get(0);
+        FileInputStream fileInputStream = new FileInputStream(file); // TODO: as soon
+        drugAndDropLabel.setText(file.getName());
+        System.out.println(file.getName());
     }
 }
