@@ -15,10 +15,10 @@ public class Constants {
     }
 
     public interface Server {
-        String SERVER_HOME_PATH = "/u02/netcracker/toms/u141_dev_6300";
-        String SERVER_IMPL_LIB_PATH = "/u02/netcracker/toms/u141_dev_6300/applications/NetCracker/APP-INF/lib";
-        String SERVER_WEB_LIB_PATH = "/u02/netcracker/toms/u141_dev_6300/applications/NetCracker/NetCrackerWebApp/WEB-INF/lib";
-        String SERVER_JSP_PATH = "/u02/netcracker/toms/u141_dev_6300/applications/NetCracker/NetCrackerWebApp/tools";
+        String SERVER_HOME_PATH = "/u02/***/toms/u141_dev_6300";
+        String SERVER_IMPL_LIB_PATH = "/u02/***/toms/u141_dev_6300/applications/***/APP-INF/lib";
+        String SERVER_WEB_LIB_PATH = "/u02/***/toms/u141_dev_6300/applications/***/***/WEB-INF/lib";
+        String SERVER_JSP_PATH = "/u02/***/toms/u141_dev_6300/applications/***/***/tools";
     }
 
     public interface Boiler {
@@ -30,8 +30,8 @@ public class Constants {
 
     public interface JSP {
         String JSP = "jsp/";
-        String RBM_EXECUTOR_JSP_PATH = "RBMExecutorLite.jsp";
-        String SHOW_GRANTS_EXTENDED_LIST_JSP_PATH = "showGrantsExtendedList.jsp";
+        String RBM_EXECUTOR_JSP_PATH = "***.jsp";
+        String SHOW_GRANTS_EXTENDED_LIST_JSP_PATH = "***.jsp";
 
         List<String> allJspList = Arrays.asList(RBM_EXECUTOR_JSP_PATH, SHOW_GRANTS_EXTENDED_LIST_JSP_PATH);
     }
