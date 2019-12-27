@@ -81,6 +81,7 @@ public class ClientEntryPoint {
         FXMLLoader loader = new FXMLLoader();
         Stage dialogStage = initHBoxStage(loader, SESSION_FUNCTION_DIALOG_PATH, SESSION_FUNCTIONS);
         dialogStage.getIcons().add(new Image(PROJECT_ICON_IMAGE_PATH));
+        dialogStage.setResizable(false);
 
         SessionFunctionController sessionFunctionController = loader.getController();
         sessionFunctionController.setDialogStage(dialogStage);
