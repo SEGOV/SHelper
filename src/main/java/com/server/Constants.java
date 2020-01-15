@@ -15,10 +15,10 @@ public class Constants {
     }
 
     public interface Server {
-        String SERVER_HOME_PATH = "/u02/***/toms/u141_dev_6300";
-        String SERVER_IMPL_LIB_PATH = "/u02/***/toms/u141_dev_6300/applications/***/APP-INF/lib";
-        String SERVER_WEB_LIB_PATH = "/u02/***/toms/u141_dev_6300/applications/***/***/WEB-INF/lib";
-        String SERVER_JSP_PATH = "/u02/***/toms/u141_dev_6300/applications/***/***/tools";
+        String SERVER_HOME_PATH = "/u02/netcracker/toms/u141_dev_6300";
+        String SERVER_IMPL_LIB_PATH = "/u02/netcracker/toms/u141_dev_6300/applications/NetCracker/APP-INF/lib";
+        String SERVER_WEB_LIB_PATH = "/u02/netcracker/toms/u141_dev_6300/applications/NetCracker/NetCrackerWebApp/WEB-INF/lib";
+        String SERVER_JSP_PATH = "/u02/netcracker/toms/u141_dev_6300/applications/NetCracker/NetCrackerWebApp/tools";
     }
 
     public interface Boiler {

@@ -5,6 +5,7 @@ import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.SftpException;
 import com.server.model.ssh.SSHManager;
+import javafx.application.Platform;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,19 +16,21 @@ import java.util.List;
 import java.util.Objects;
 
 import static com.server.Constants.Boiler.*;
+import static com.server.Constants.Message.CRLF;
+import static com.server.Constants.Message.EMDASH;
 import static com.server.Constants.Server.SERVER_HOME_PATH;
 
 public class CleanBoilerFunction implements Function {
-    private SessionFunctionController sessionFunctionController;
+    private SessionFunctionController functionController;
 
     @Override
     public void execute(SessionFunctionController sessionFunctionController) {
-        this.sessionFunctionController = sessionFunctionController;
+        this.functionController = sessionFunctionController;
         SSHManager sshManager = SSHManager.getInstance();
         com.server.model.ssh.Session session = sessionFunctionController.getSession();
         sshManager.fetchSSHManager(session);
 
-        uploadScriptIfNotExist();
+//        uploadScriptIfNotExist();
         executeCleanBoilerScript(sessionFunctionController);
     }
 
@@ -42,7 +45,7 @@ public class CleanBoilerFunction implements Function {
             ClassLoader classLoader = CleanBoilerFunction.class.getClassLoader();
             URL resource = classLoader.getResource(CLEAN_BOILER_SCRIPT_PATH);
             if (Objects.isNull(resource)) {
-                sessionFunctionController.consoleAppendText("clean_boiler.sh script missed on the program, clean boiler function is not supported");
+                functionController.consoleAppendText("clean_boiler.sh script missed on the program, clean boiler function is not supported");
                 new RuntimeException(CLEAN_BOILER_SCRIPT_NAME + " script missed on the program, clean boiler function is not supported", new Throwable());
             }
             script = new File(resource.getFile());
@@ -62,9 +65,9 @@ public class CleanBoilerFunction implements Function {
             }
         }
         if (isExist) {
-            sessionFunctionController.consoleAppendText("File " + CLEAN_BOILER_SCRIPT_NAME + " exist on the server.");
+            functionController.consoleAppendText("File " + CLEAN_BOILER_SCRIPT_NAME + " exist on the server.");
         } else {
-            sessionFunctionController.consoleAppendText("File " + CLEAN_BOILER_SCRIPT_NAME + " is not exist on the server!");
+            functionController.consoleAppendText("File " + CLEAN_BOILER_SCRIPT_NAME + " is not exist on the server!");
         }
         return isExist;
     }

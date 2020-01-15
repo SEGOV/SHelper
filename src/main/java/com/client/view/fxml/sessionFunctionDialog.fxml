@@ -111,7 +111,7 @@
                         </CheckBox>
                      </children>
                   </GridPane>
-                  <GridPane layoutX="11.0" layoutY="79.0" prefHeight="36.0" prefWidth="163.0" AnchorPane.bottomAnchor="283.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="9.0">
+                  <GridPane layoutX="11.0" layoutY="79.0" prefHeight="69.0" prefWidth="163.0" AnchorPane.bottomAnchor="283.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="9.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -207,7 +207,7 @@
                         </Lighting>
                      </effect>
                   </Label>
-                  <TextArea fx:id="consoleTextArea" editable="false" layoutX="7.0" layoutY="35.0" prefHeight="304.0" prefWidth="249.0" wrapText="true" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" />
+                  <TextArea fx:id="console" editable="false" layoutX="7.0" layoutY="35.0" prefHeight="304.0" prefWidth="249.0" wrapText="true" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" />
                   <Button layoutX="14.0" layoutY="261.0" mnemonicParsing="false" onAction="#handleCleanConsole" prefHeight="25.0" prefWidth="52.0" text="Clean" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="8.0" />
                </children>
             </AnchorPane>
