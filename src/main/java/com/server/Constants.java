@@ -1,5 +1,7 @@
 package com.server;
 
+import com.server.util.PropertiesReader;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,10 +17,10 @@ public class Constants {
     }
 
     public interface Server {
-        String SERVER_HOME_PATH = "/u02/netcracker/toms/u141_dev_6300";
-        String SERVER_IMPL_LIB_PATH = "/u02/netcracker/toms/u141_dev_6300/applications/NetCracker/APP-INF/lib";
-        String SERVER_WEB_LIB_PATH = "/u02/netcracker/toms/u141_dev_6300/applications/NetCracker/NetCrackerWebApp/WEB-INF/lib";
-        String SERVER_JSP_PATH = "/u02/netcracker/toms/u141_dev_6300/applications/NetCracker/NetCrackerWebApp/tools";
+        String SERVER_HOME_PATH = PropertiesReader.getInstance().getPropertyValue("SERVER_HOME_PATH");
+        String SERVER_IMPL_LIB_PATH = PropertiesReader.getInstance().getPropertyValue("SERVER_IMPL_LIB_PATH");
+        String SERVER_WEB_LIB_PATH = PropertiesReader.getInstance().getPropertyValue("SERVER_WEB_LIB_PATH");
+        String SERVER_JSP_PATH = PropertiesReader.getInstance().getPropertyValue("SERVER_JSP_PATH");
     }
 
     public interface Boiler {

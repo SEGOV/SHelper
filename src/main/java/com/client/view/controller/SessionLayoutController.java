@@ -3,6 +3,7 @@ package com.client.view.controller;
 import com.MainApp;
 import com.client.ClientEntryPoint;
 import com.client.alert.SessionAlert;
+import com.server.util.PropertiesReader;
 import com.server.util.ViewDisableUpdater;
 import com.server.model.ssh.LogInfo;
 import com.server.model.ssh.Session;
@@ -117,8 +118,13 @@ public class SessionLayoutController extends SessionController {
         session.setFileProtocol(SFTP_FILE_PROTOCOL);
         session.setPortNumber(PORT);
 
-        LogInfo logInfo = LogInfoService.getInstance().getById(1);
-
+        LogInfoService logInfoService = LogInfoService.getInstance();
+        logInfoService.createLogInfoTable();
+        PropertiesReader propertiesReader = PropertiesReader.getInstance();
+        String login = propertiesReader.getPropertyValue("LOGIN");
+        String password = propertiesReader.getPropertyValue("PASSWORD");
+        logInfoService.createRow(login, password);
+        LogInfo logInfo = logInfoService.getById(1);
         session.setUserName(logInfo.getLogin());
         session.setPassword(logInfo.getPassword());
 

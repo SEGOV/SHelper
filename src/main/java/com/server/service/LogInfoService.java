@@ -18,4 +18,16 @@ public class LogInfoService {
         dao.close();
         return logInfo;
     }
+
+    public void createLogInfoTable() {
+        LogInfoDao dao = (LogInfoDao) daoManager.getDao(LogInfoDao.class);
+        dao.createLogInfoTable();
+        dao.close();
+    }
+
+    public void createRow(String login, String password) {
+        LogInfoDao dao = (LogInfoDao) daoManager.getDao(LogInfoDao.class);
+        dao.createRow(login, password);
+        dao.close();
+    }
 }
