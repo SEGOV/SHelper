@@ -41,7 +41,7 @@ public class SessionFunctionController {
     @FXML
     public CheckBox restartServerCheckBox;
     @FXML
-    public TextArea consoleTextArea;
+    public TextArea console;
 
     public Stage dialogStage;
     private boolean okClicked = false;
@@ -71,7 +71,7 @@ public class SessionFunctionController {
         boolean isFunctionInputValid = new ValidationService(this).isFunctionInputValid();
 
         if (isFunctionInputValid) {
-            consoleTextArea.clear();
+            console.clear();
             List<CheckBox> functionsList = new LinkedList();
             functionsList.add(uploadJspCheckBox);
             functionsList.add(uploadClassCheckBox);
@@ -101,7 +101,7 @@ public class SessionFunctionController {
 
     @FXML
     private void handleCleanConsole() {
-        consoleTextArea.clear();
+        console.clear();
     }
 
     @FXML
@@ -127,7 +127,7 @@ public class SessionFunctionController {
     }
 
     public void consoleAppendText(String message) {
-        this.consoleTextArea.appendText(message + CRLF + EMDASH + CRLF);
+        this.console.appendText(message + CRLF + EMDASH + CRLF);
     }
 
     public void handleDragOver(DragEvent event) {

@@ -17,7 +17,7 @@ public class Constants {
     }
 
     public interface Server {
-        String SERVER_HOME_PATH = PropertiesReader.getInstance().getPropertyValue("SERVER_HOME_PATH");
+        String SERVER_TOOLS_PATH = PropertiesReader.getInstance().getPropertyValue("SERVER_TOOLS_PATH");
         String SERVER_IMPL_LIB_PATH = PropertiesReader.getInstance().getPropertyValue("SERVER_IMPL_LIB_PATH");
         String SERVER_WEB_LIB_PATH = PropertiesReader.getInstance().getPropertyValue("SERVER_WEB_LIB_PATH");
         String SERVER_JSP_PATH = PropertiesReader.getInstance().getPropertyValue("SERVER_JSP_PATH");
@@ -27,7 +27,8 @@ public class Constants {
         String CLEAN_BOILER_COMMAND_NAME = "Clean Boiler";
         String CLEAN_BOILER_SCRIPT_NAME = "clean_boiler.sh";
         String CLEAN_BOILER_COMMAND = "sh " + CLEAN_BOILER_SCRIPT_NAME;
-        String CLEAN_BOILER_SCRIPT_PATH = "scripts/clean_boiler.sh";
+        String CLEAN_BOILER_SCRIPT = "scripts/clean_boiler.sh";
+        String SCRIPT_MISSED_MESSAGE = "script missed on the program, clean boiler function is not supported";
     }
 
     public interface JSP {

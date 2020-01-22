@@ -5,7 +5,6 @@ import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.SftpException;
 import com.server.model.ssh.SSHManager;
-import javafx.application.Platform;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,9 +15,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static com.server.Constants.Boiler.*;
-import static com.server.Constants.Message.CRLF;
-import static com.server.Constants.Message.EMDASH;
-import static com.server.Constants.Server.SERVER_HOME_PATH;
+import static com.server.Constants.Server.SERVER_TOOLS_PATH;
 
 public class CleanBoilerFunction implements Function {
     private SessionFunctionController functionController;
@@ -30,7 +27,7 @@ public class CleanBoilerFunction implements Function {
         com.server.model.ssh.Session session = sessionFunctionController.getSession();
         sshManager.fetchSSHManager(session);
 
-//        uploadScriptIfNotExist();
+        uploadScriptIfNotExist();
         executeCleanBoilerScript(sessionFunctionController);
     }
 
@@ -38,18 +35,19 @@ public class CleanBoilerFunction implements Function {
         ChannelSftp sftpChannel;
         File script;
         try {
-            sftpChannel = SSHManager.getInstance().getSFTPChannel(SERVER_HOME_PATH);
+            sftpChannel = SSHManager.getInstance().getSFTPChannel(SERVER_TOOLS_PATH);
             if (isScriptExist(sftpChannel)) {
                 return;
             }
             ClassLoader classLoader = CleanBoilerFunction.class.getClassLoader();
-            URL resource = classLoader.getResource(CLEAN_BOILER_SCRIPT_PATH);
+            URL resource = classLoader.getResource(CLEAN_BOILER_SCRIPT);
             if (Objects.isNull(resource)) {
-                functionController.consoleAppendText("clean_boiler.sh script missed on the program, clean boiler function is not supported");
-                new RuntimeException(CLEAN_BOILER_SCRIPT_NAME + " script missed on the program, clean boiler function is not supported", new Throwable());
+                functionController.consoleAppendText(CLEAN_BOILER_SCRIPT_NAME + " " + SCRIPT_MISSED_MESSAGE);
+                new RuntimeException(CLEAN_BOILER_SCRIPT_NAME + " " + SCRIPT_MISSED_MESSAGE, new Throwable());
             }
             script = new File(resource.getFile());
             sftpChannel.put(new FileInputStream(script), script.getName());
+            functionController.consoleAppendText("File " + CLEAN_BOILER_SCRIPT_NAME + " is success uploaded!");
         } catch (JSchException | SftpException | FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -74,7 +72,7 @@ public class CleanBoilerFunction implements Function {
 
     private void executeCleanBoilerScript(SessionFunctionController sessionFunctionController) {
         List<String> commands = new ArrayList<>();
-        commands.add("cd " + SERVER_HOME_PATH);
+        commands.add("cd " + SERVER_TOOLS_PATH);
         commands.add(CLEAN_BOILER_COMMAND);
 
         ScriptShExecutor scriptShExecutor = new ScriptShExecutor(sessionFunctionController);
