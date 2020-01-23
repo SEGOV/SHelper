@@ -159,7 +159,7 @@
                            </light>
                         </Lighting>
                      </effect></Label>
-                  <Label layoutX="10.0" layoutY="14.0" prefHeight="20.0" prefWidth="94.0" text="Jars Uploaded" textFill="WHITE" AnchorPane.bottomAnchor="368.0" AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="10.0">
+                  <Label layoutX="10.0" layoutY="14.0" prefHeight="20.0" prefWidth="104.0" text="Jars To Upload" textFill="WHITE" AnchorPane.bottomAnchor="368.0" AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="10.0">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
