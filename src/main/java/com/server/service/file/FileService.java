@@ -20,20 +20,20 @@ import java.util.regex.Pattern;
 public class FileService {
 
     private static final String SNAPSHOT_JAR = "SNAPSHOT.jar";
-    private SessionFunctionController sessionFunctionController;
+    private SessionFunctionController functionController;
     private String moduleName;
-    private File renamedImplJar;
-    private File renamedWebJar;
-    private File oldImplJar;
-    private File oldWebJar;
+    private File newImplJarFile;
+    private File newWebJarFile;
+    private File implJar;
+    private File webJar;
     private SessionAlert sessionAlert = SessionAlert.getInstance();
 
     public FileService(SessionFunctionController sessionFunctionController) {
-        this.sessionFunctionController = sessionFunctionController;
+        this.functionController = sessionFunctionController;
     }
 
     public void upload(File uploadFile, String serverPathToUploadFile) {
-        Session session = sessionFunctionController.getSession();
+        Session session = functionController.getSession();
         SSHManager sshManager = SSHManager.getInstance();
         sshManager.fetchSSHManager(session);
 
@@ -41,27 +41,28 @@ public class FileService {
         try {
             sftpChannel = sshManager.getSFTPChannel(serverPathToUploadFile);
         } catch (JSchException e) {
-            sessionAlert.showConnectionFailed(sessionFunctionController.dialogStage);
+            sessionAlert.showConnectionFailed(functionController.dialogStage);
             e.printStackTrace();
         }
         if (Objects.nonNull(sftpChannel)) {
             try {
                 sftpChannel.put(new FileInputStream(uploadFile), uploadFile.getName(), ChannelSftp.OVERWRITE);
             } catch (SftpException e) {
-                sessionAlert.showCanNotOverrideJarFile(sessionFunctionController.dialogStage, uploadFile);
+                sessionAlert.showCanNotOverrideJarFile(functionController.dialogStage, uploadFile);
                 e.printStackTrace();
             } catch (FileNotFoundException e) {
-                sessionAlert.showFileNotFoundUploadJar(sessionFunctionController.dialogStage, uploadFile);
+                sessionAlert.showFileNotFoundUploadJar(functionController.dialogStage, uploadFile);
                 e.printStackTrace();
             }
         } else {
-            sessionAlert.showConnectionFailed(sessionFunctionController.dialogStage);
+            sessionAlert.showConnectionFailed(functionController.dialogStage);
         }
+        functionController.consoleAppendText("Success " + uploadFile.getName() + "  uploaded on the server.");
     }
 
     public void renameJarsIfExists() {
-        Stage dialogStage = sessionFunctionController.dialogStage;
-        String pathToProject = sessionFunctionController.pathToProjectsLabel.getText();
+        Stage dialogStage = functionController.dialogStage;
+        String pathToProject = functionController.pathToProjectsLabel.getText();
 
         Pattern regex = Pattern.compile("[^.]+$");
         Matcher matcher = regex.matcher(pathToProject);
@@ -69,14 +70,14 @@ public class FileService {
             moduleName = matcher.group(0).toLowerCase();
         }
 
-        if (sessionFunctionController.implCheckBox.isSelected()) {
+        if (functionController.implCheckBox.isSelected()) {
             String implJarPathDirectory = pathToProject + "\\telenet-" + moduleName + "-impl\\target\\";
             if (isImplJarExist(dialogStage, implJarPathDirectory)) {
                 renameImplJar(implJarPathDirectory + "\\" + "telenet-" + moduleName + "-impl.jar");
             }
         }
 
-        if (sessionFunctionController.webCheckBox.isSelected()) {
+        if (functionController.webCheckBox.isSelected()) {
             String webJarPathDirectory = pathToProject + "\\telenet-" + moduleName + "-web\\target\\";
             if (isWebJarExist(dialogStage, webJarPathDirectory)) {
                 renameWebJar(webJarPathDirectory + "\\" + "telenet-" + moduleName + "-web.jar");
@@ -98,7 +99,7 @@ public class FileService {
             sessionAlert.showImplJarDoesntExistAlert(dialogStage, pathToProject);
         } else {
             String oldImplJarName = files[0].getAbsolutePath();
-            this.oldImplJar = new File(oldImplJarName);
+            this.implJar = new File(oldImplJarName);
             return true;
         }
         return false;
@@ -118,29 +119,29 @@ public class FileService {
             sessionAlert.showWebJarDoesntExistAlert(dialogStage, pathToProject);
         } else {
             String oldWebJarName = files[0].getAbsolutePath();
-            this.oldWebJar = new File(oldWebJarName);
+            this.webJar = new File(oldWebJarName);
             return true;
         }
         return false;
     }
 
     private void renameImplJar(String implJarPath) {
-        File newImplJarFile = new File(implJarPath);
-        oldImplJar.renameTo(newImplJarFile); // TODO: Send event: "Rename Impl jar file is success"
-        renamedImplJar = oldImplJar;
+        newImplJarFile = new File(implJarPath);
+        implJar.renameTo(newImplJarFile);
+        functionController.consoleAppendText("Rename " + newImplJarFile.getName() + " success.");
     }
 
     private void renameWebJar(String webJarPath) {
-        File newWebJarFile = new File(webJarPath);
-        oldWebJar.renameTo(newWebJarFile); // TODO: Send event: "Rename Web jar file is success"
-        renamedWebJar = oldWebJar;
+        newWebJarFile = new File(webJarPath);
+        webJar.renameTo(newWebJarFile);
+        functionController.consoleAppendText("Rename " + newWebJarFile.getName() + " success.");
     }
 
     public File getRenamedImplJar() {
-        return renamedImplJar;
+        return newImplJarFile;
     }
 
     public File getRenamedWebJar() {
-        return renamedWebJar;
+        return newWebJarFile;
     }
 }

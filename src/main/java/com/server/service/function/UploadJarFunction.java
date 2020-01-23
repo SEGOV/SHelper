@@ -9,6 +9,9 @@ import com.server.service.file.FileService;
 import java.io.File;
 import java.util.Objects;
 
+import static com.server.Constants.Server.SERVER_IMPL_LIB_PATH;
+import static com.server.Constants.Server.SERVER_WEB_LIB_PATH;
+
 public class UploadJarFunction implements Function {
     private FileService fileService;
     private SessionFunctionController sessionFunctionController;
@@ -32,7 +35,7 @@ public class UploadJarFunction implements Function {
         }
     }
 
-    private void renameLocalProjectJars() throws ShelperException {
+    private void renameLocalProjectJars() {
         fileService = new FileService(sessionFunctionController);
         fileService.renameJarsIfExists();
     }
@@ -42,10 +45,10 @@ public class UploadJarFunction implements Function {
         File webJar = fileService.getRenamedWebJar();
 
         if(Objects.nonNull(implJar)) {
-//            fileService.upload(implJar, SERVER_IMPL_LIB_PATH);
+            fileService.upload(implJar, SERVER_IMPL_LIB_PATH);
         }
         if(Objects.nonNull(webJar)) {
-//            upload(webJar, SERVER_WEB_LIB_PATH);
+            fileService.upload(webJar, SERVER_WEB_LIB_PATH);
         }
     }
 }
