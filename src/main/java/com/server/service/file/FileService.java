@@ -5,7 +5,6 @@ import com.client.view.controller.SessionFunctionController;
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.SftpException;
-import com.server.exception.ShelperException;
 import com.server.model.ssh.SSHManager;
 import com.server.model.ssh.Session;
 import javafx.stage.Stage;
@@ -13,16 +12,20 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FilenameFilter;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class FileService {
 
+    private static final String SNAPSHOT_JAR = "SNAPSHOT.jar";
     private SessionFunctionController sessionFunctionController;
     private String moduleName;
-    private File implJar;
-    private File webJar;
+    private File renamedImplJar;
+    private File renamedWebJar;
+    private File oldImplJar;
+    private File oldWebJar;
     private SessionAlert sessionAlert = SessionAlert.getInstance();
 
     public FileService(SessionFunctionController sessionFunctionController) {
@@ -56,13 +59,9 @@ public class FileService {
         }
     }
 
-    public void checkJarExist() throws ShelperException {
+    public void renameJarsIfExists() {
         Stage dialogStage = sessionFunctionController.dialogStage;
         String pathToProject = sessionFunctionController.pathToProjectsLabel.getText();
-
-        if (Objects.isNull(pathToProject)) {
-            throw new ShelperException();
-        }
 
         Pattern regex = Pattern.compile("[^.]+$");
         Matcher matcher = regex.matcher(pathToProject);
@@ -70,55 +69,78 @@ public class FileService {
             moduleName = matcher.group(0).toLowerCase();
         }
 
-        String replacedPathToProject = pathToProject.replace("\\", "\\\\");
         if (sessionFunctionController.implCheckBox.isSelected()) {
-            String pathToImpl = "\\telenet-" + moduleName + "-impl\\target\\telenet-" + moduleName + "-impl-1.2.c2-SNAPSHOT.jar";
-            String replacedPathToImpl = pathToImpl.replace("\\", "\\\\");
-            String implJarPath = replacedPathToProject + replacedPathToImpl;
-            implJar = new File(implJarPath);
-            if (!implJar.exists()) {
-                sessionAlert.showImplJarDoesntExistAlert(dialogStage, pathToProject);
-                throw new ShelperException("Impl Jar doesn't exist");
+            String implJarPathDirectory = pathToProject + "\\telenet-" + moduleName + "-impl\\target\\";
+            if (isImplJarExist(dialogStage, implJarPathDirectory)) {
+                renameImplJar(implJarPathDirectory + "\\" + "telenet-" + moduleName + "-impl.jar");
             }
         }
+
         if (sessionFunctionController.webCheckBox.isSelected()) {
-            String pathToWeb = "\\telenet-" + moduleName + "-web\\target\\telenet-" + moduleName + "-web-1.2.c2-SNAPSHOT.jar";
-            String replacedPathToWeb = pathToWeb.replace("\\", "\\\\");
-            String webJarPath = replacedPathToProject + replacedPathToWeb;
-            webJar = new File(webJarPath);
-            if (!webJar.exists()) {
-                sessionAlert.showWebJarDoesntExistAlert(dialogStage, pathToProject);
-                throw new ShelperException("Web Jar doesn't exist");
+            String webJarPathDirectory = pathToProject + "\\telenet-" + moduleName + "-web\\target\\";
+            if (isWebJarExist(dialogStage, webJarPathDirectory)) {
+                renameWebJar(webJarPathDirectory + "\\" + "telenet-" + moduleName + "-web.jar");
             }
         }
     }
 
-    public void renameSelectedJars() {
-        if (sessionFunctionController.implCheckBox.isSelected()) {
-            String oldImplJarFilePath = implJar.getParent();
-            File newImplJarFile = new File(oldImplJarFilePath + "\\" + "telenet-" + moduleName + "-impl.jar");
-            if (!newImplJarFile.exists()) {
-                newImplJarFile.delete();
+    public boolean isImplJarExist(Stage dialogStage, String pathToProject) {
+        File folder = new File(pathToProject);
+        FilenameFilter txtFileFilter = (dir, name) -> {
+            if (name.endsWith(SNAPSHOT_JAR)) {
+                return true;
+            } else {
+                return false;
             }
-            implJar.renameTo(newImplJarFile); // TODO: Send event: "Rename Web jar file is success"
-            implJar = newImplJarFile;
+        };
+        File[] files = folder.listFiles(txtFileFilter);
+        if (files.length == 0) {
+            sessionAlert.showImplJarDoesntExistAlert(dialogStage, pathToProject);
+        } else {
+            String oldImplJarName = files[0].getAbsolutePath();
+            this.oldImplJar = new File(oldImplJarName);
+            return true;
         }
-        if (sessionFunctionController.webCheckBox.isSelected()) {
-            String oldWebJarFilePath = webJar.getParent();
-            File newWebJarFile = new File(oldWebJarFilePath + "\\" + "telenet-" + moduleName + "-web.jar");
-            if (newWebJarFile.exists()) {
-                newWebJarFile.delete();
-            }
-            webJar.renameTo(newWebJarFile);  // TODO: Send event: "Rename Web jar file is success"
-            webJar = newWebJarFile;
-        }
+        return false;
     }
 
-    public File getImplJar() {
-        return implJar;
+    public boolean isWebJarExist(Stage dialogStage, String pathToProject) {
+        File folder = new File(pathToProject);
+        FilenameFilter txtFileFilter = (dir, name) -> {
+            if (name.endsWith(SNAPSHOT_JAR)) {
+                return true;
+            } else {
+                return false;
+            }
+        };
+        File[] files = folder.listFiles(txtFileFilter);
+        if (files.length == 0) {
+            sessionAlert.showWebJarDoesntExistAlert(dialogStage, pathToProject);
+        } else {
+            String oldWebJarName = files[0].getAbsolutePath();
+            this.oldWebJar = new File(oldWebJarName);
+            return true;
+        }
+        return false;
     }
 
-    public File getWebJar() {
-        return webJar;
+    private void renameImplJar(String implJarPath) {
+        File newImplJarFile = new File(implJarPath);
+        oldImplJar.renameTo(newImplJarFile); // TODO: Send event: "Rename Impl jar file is success"
+        renamedImplJar = oldImplJar;
+    }
+
+    private void renameWebJar(String webJarPath) {
+        File newWebJarFile = new File(webJarPath);
+        oldWebJar.renameTo(newWebJarFile); // TODO: Send event: "Rename Web jar file is success"
+        renamedWebJar = oldWebJar;
+    }
+
+    public File getRenamedImplJar() {
+        return renamedImplJar;
+    }
+
+    public File getRenamedWebJar() {
+        return renamedWebJar;
     }
 }
