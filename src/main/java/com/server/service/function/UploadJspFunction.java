@@ -14,20 +14,18 @@ import static com.server.Constants.Server.SERVER_JSP_PATH;
 public class UploadJspFunction implements Function {
     @Override
     public void execute(SessionFunctionController sessionFunctionController) {
-        List<String> allJspList = Constants.JSP.allJspList;
+        List<String> jspList = Constants.JSP.jspList;
 
-        for(String jspName : allJspList) {
+        for(String jspName : jspList) {
             ClassLoader classLoader = UploadJspFunction.class.getClassLoader();
-            String resourceFileUrl = Constants.JSP.JSP + jspName;
-            URL resource = classLoader.getResource(resourceFileUrl);
+            URL resource = classLoader.getResource(Constants.JSP.JSP + jspName);
 
             if (Objects.isNull(resource)) {
                 sessionFunctionController.consoleAppendText(jspName + " is missed on the program, jsp will not be uploaded on the server.");
-                new RuntimeException(jspName + " uploadFile missed on the program, jsp will not be uploaded on the server.", new Throwable());
+                continue;
             }
             File uploadFile = new File(resource.getFile());
             new FileService(sessionFunctionController).upload(uploadFile, SERVER_JSP_PATH);
-            sessionFunctionController.consoleAppendText(jspName + " success uploaded on the server");
         }
     }
 }

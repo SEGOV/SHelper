@@ -33,10 +33,11 @@ public class Constants {
 
     public interface JSP {
         String JSP = "jsp/";
-        String RBM_EXECUTOR_JSP_PATH = "***.jsp";
-        String SHOW_GRANTS_EXTENDED_LIST_JSP_PATH = "***.jsp";
+        String SHOW_CLASS = "RBMExecutorLite.jsp";
+        String RBM_EXECUTOR = "RBMExecutorLite.jsp";
+        String SHOW_GRANTS_EXTENDED_LIST = "showGrantsExtendedList.jsp";
 
-        List<String> allJspList = Arrays.asList(RBM_EXECUTOR_JSP_PATH, SHOW_GRANTS_EXTENDED_LIST_JSP_PATH);
+        List<String> jspList = Arrays.asList(SHOW_CLASS, RBM_EXECUTOR, SHOW_GRANTS_EXTENDED_LIST);
     }
 
     public interface Message {
