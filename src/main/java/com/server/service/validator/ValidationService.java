@@ -14,7 +14,7 @@ import java.util.Objects;
 
 import static com.server.Constants.Message.*;
 import static com.server.Constants.Message.CRLF;
-import static com.server.Constants.Server.SERVER_TOOLS_PATH;
+import static com.server.Constants.Server.SERVER_PATH;
 
 public class ValidationService {
     private SessionFunctionController sessionFunctionController;
@@ -91,7 +91,7 @@ public class ValidationService {
         SSHManager sshManager = SSHManager.getInstance();
         sshManager.fetchSSHManager(sessionController.getSession());
         try {
-            sshManager.getSFTPChannel(SERVER_TOOLS_PATH);
+            sshManager.getSFTPChannel(SERVER_PATH);
         } catch (JSchException e) {
             sessionAlert.showConnectionFailedWithParametersAlert(dialogStage);
             return false;

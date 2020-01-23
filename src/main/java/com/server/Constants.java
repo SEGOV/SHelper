@@ -17,10 +17,13 @@ public class Constants {
     }
 
     public interface Server {
-        String SERVER_TOOLS_PATH = PropertiesReader.getInstance().getPropertyValue("SERVER_TOOLS_PATH");
+        String SERVER_PATH = PropertiesReader.getInstance().getPropertyValue("SERVER_PATH");
         String SERVER_IMPL_LIB_PATH = PropertiesReader.getInstance().getPropertyValue("SERVER_IMPL_LIB_PATH");
         String SERVER_WEB_LIB_PATH = PropertiesReader.getInstance().getPropertyValue("SERVER_WEB_LIB_PATH");
         String SERVER_JSP_PATH = PropertiesReader.getInstance().getPropertyValue("SERVER_JSP_PATH");
+
+        String SERVER_STOP_ALL_NODES_COMMAND_NAME = "stop_all_nodes.sh";
+        String SERVER_STOP_ALL_NODES_COMMAND = "./" + SERVER_STOP_ALL_NODES_COMMAND_NAME;
     }
 
     public interface Boiler {

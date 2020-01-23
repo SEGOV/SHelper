@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static com.server.Constants.Boiler.*;
-import static com.server.Constants.Server.SERVER_TOOLS_PATH;
+import static com.server.Constants.Server.SERVER_PATH;
 
 public class CleanBoilerFunction implements Function {
     private SessionFunctionController functionController;
@@ -35,7 +35,7 @@ public class CleanBoilerFunction implements Function {
         ChannelSftp sftpChannel;
         File script;
         try {
-            sftpChannel = SSHManager.getInstance().getSFTPChannel(SERVER_TOOLS_PATH);
+            sftpChannel = SSHManager.getInstance().getSFTPChannel(SERVER_PATH);
             if (isScriptExist(sftpChannel)) {
                 return;
             }
@@ -72,7 +72,7 @@ public class CleanBoilerFunction implements Function {
 
     private void executeCleanBoilerScript(SessionFunctionController sessionFunctionController) {
         List<String> commands = new ArrayList<>();
-        commands.add("cd " + SERVER_TOOLS_PATH);
+        commands.add("cd " + SERVER_PATH);
         commands.add(CLEAN_BOILER_COMMAND);
 
         ScriptShExecutor scriptShExecutor = new ScriptShExecutor(sessionFunctionController);
