@@ -1,16 +1,18 @@
 package com.server.service.function;
 
 import com.client.view.controller.SessionFunctionController;
-import com.jcraft.jsch.Channel;
-import com.jcraft.jsch.ChannelShell;
-import com.jcraft.jsch.JSch;
-import com.jcraft.jsch.Session;
+import com.jcraft.jsch.*;
 import com.server.Constants;
+import com.server.model.ssh.SSHManager;
 
-import java.io.InputStream;
-import java.io.PrintStream;
+import java.io.*;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Properties;
+
+import static com.server.Constants.Server.*;
 
 public class ScriptShExecutor {
     private Session session;
@@ -18,7 +20,7 @@ public class ScriptShExecutor {
     private String username;
     private String password;
     private String hostname;
-    private String stringCommandName;
+    private String commandName;
     private SessionFunctionController functionController;
 
     public ScriptShExecutor(SessionFunctionController functionController) {
@@ -30,14 +32,18 @@ public class ScriptShExecutor {
         this.hostname = session.getHostName();
     }
 
-    public void executeCommands(String stringCommandName, List<String> commands) {
-        this.stringCommandName = stringCommandName;
+    public void executeCommands(String commandName) {
+        this.commandName = commandName;
+
+        List<String> commands = new ArrayList<>();
+        commands.add("cd " + SERVER_PATH);
+        commands.add("sh " + commandName);
         try {
             Channel channel = getChannel();
             functionController.consoleAppendText("Sending commands...");
             sendCommands(channel, commands);
             readChannelOutput(channel);
-            functionController.consoleAppendText("Finished sending " + stringCommandName + "!");
+            functionController.consoleAppendText("Finished sending " + commandName + "!");
         } catch (Exception e) {
             functionController.consoleAppendText("An error ocurred during executeCommands: " + e);
         }
@@ -94,7 +100,7 @@ public class ScriptShExecutor {
             functionController.consoleAppendText("exit");
             out.flush();
         } catch (Exception e) {
-            functionController.consoleAppendText("Error while sending " + stringCommandName + ": " + e);
+            functionController.consoleAppendText("Error while sending " + commandName + ": " + e);
         }
     }
 
@@ -127,6 +133,45 @@ public class ScriptShExecutor {
         } catch (Exception e) {
             functionController.consoleAppendText("Error while reading channel output: " + e);
         }
+    }
+
+    public void uploadScriptIfNotExist(String scriptName, String scriptMissedMessage) {
+        ChannelSftp sftpChannel;
+        File script;
+        try {
+            sftpChannel = SSHManager.getInstance().getSFTPChannel(SERVER_PATH);
+            if (isScriptExist(sftpChannel, scriptName)) {
+                return;
+            }
+            ClassLoader classLoader = RestartServerFunction.class.getClassLoader();
+            URL resource = classLoader.getResource("scripts/" + scriptName);
+            if (Objects.isNull(resource)) {
+                functionController.consoleAppendText(scriptName + " " + scriptMissedMessage);
+                new RuntimeException(scriptName + " " + scriptMissedMessage, new Throwable());
+            }
+            script = new File(resource.getFile());
+            sftpChannel.put(new FileInputStream(script), script.getName());
+            functionController.consoleAppendText("File " + scriptName + " is success uploaded!");
+        } catch (JSchException | SftpException | FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private boolean isScriptExist(ChannelSftp sftpChannel, String scriptName) {
+        boolean isExist = true;
+        try {
+            sftpChannel.lstat(scriptName);
+        } catch (SftpException e) {
+            if (e.id == ChannelSftp.SSH_FX_NO_SUCH_FILE) {
+                isExist = false;
+            }
+        }
+        if (isExist) {
+            functionController.consoleAppendText("File " + scriptName + " exist on the server.");
+        } else {
+            functionController.consoleAppendText("File " + scriptName + " is not exist on the server!");
+        }
+        return isExist;
     }
 
     private void close() {

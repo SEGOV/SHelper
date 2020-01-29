@@ -1,22 +1,17 @@
 package com.server.service.function;
 
 import com.client.view.controller.SessionFunctionController;
-import com.server.Constants;
+import com.server.model.ssh.SSHManager;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.server.Constants.Server.SERVER_PATH;
-import static com.server.Constants.Server.SERVER_STOP_ALL_NODES_COMMAND_NAME;
+import static com.server.Constants.Server.*;
 
 public class RestartServerFunction implements Function {
     @Override
-    public void execute(SessionFunctionController sessionFunctionController) {
-        List<String> commands = new ArrayList<>();
-        commands.add("cd " + SERVER_PATH);
-        commands.add(Constants.Server.SERVER_STOP_ALL_NODES_COMMAND);
+    public void execute(SessionFunctionController functionController) {
+        SSHManager.getInstance().fetchSSHManager(functionController.getSession());
+        ScriptShExecutor scriptShExecutor = new ScriptShExecutor(functionController);
 
-        ScriptShExecutor scriptShExecutor = new ScriptShExecutor(sessionFunctionController);
-        scriptShExecutor.executeCommands(SERVER_STOP_ALL_NODES_COMMAND_NAME, commands);
+        scriptShExecutor.uploadScriptIfNotExist(STOP_SERVER_NODES_SCRIPT_NAME, STOP_SERVER_NODES_SCRIPT_MISSED_MESSAGE);
+        scriptShExecutor.executeCommands(STOP_SERVER_NODES_SCRIPT_NAME);
     }
 }

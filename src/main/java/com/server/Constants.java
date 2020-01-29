@@ -22,16 +22,13 @@ public class Constants {
         String SERVER_WEB_LIB_PATH = PropertiesReader.getInstance().getPropertyValue("SERVER_WEB_LIB_PATH");
         String SERVER_JSP_PATH = PropertiesReader.getInstance().getPropertyValue("SERVER_JSP_PATH");
 
-        String SERVER_STOP_ALL_NODES_COMMAND_NAME = "stop_all_nodes.sh";
-        String SERVER_STOP_ALL_NODES_COMMAND = "./" + SERVER_STOP_ALL_NODES_COMMAND_NAME;
+        String STOP_SERVER_NODES_SCRIPT_NAME = "stop_server_nodes.sh";
+        String STOP_SERVER_NODES_SCRIPT_MISSED_MESSAGE = "script missed on the program, restart server function is not supported";
     }
 
     public interface Boiler {
-        String CLEAN_BOILER_COMMAND_NAME = "Clean Boiler";
         String CLEAN_BOILER_SCRIPT_NAME = "clean_boiler.sh";
-        String CLEAN_BOILER_COMMAND = "sh " + CLEAN_BOILER_SCRIPT_NAME;
-        String CLEAN_BOILER_SCRIPT = "scripts/clean_boiler.sh";
-        String SCRIPT_MISSED_MESSAGE = "script missed on the program, clean boiler function is not supported";
+        String CLEAN_BOILER_SCRIPT_MISSED_MESSAGE = "script missed on the program, clean boiler function is not supported";
     }
 
     public interface JSP {
