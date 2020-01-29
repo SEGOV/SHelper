@@ -22,8 +22,9 @@ public class Constants {
         String SERVER_WEB_LIB_PATH = PropertiesReader.getInstance().getPropertyValue("SERVER_WEB_LIB_PATH");
         String SERVER_JSP_PATH = PropertiesReader.getInstance().getPropertyValue("SERVER_JSP_PATH");
 
-        String STOP_SERVER_NODES_SCRIPT_NAME = "stop_server_nodes.sh";
-        String STOP_SERVER_NODES_SCRIPT_MISSED_MESSAGE = "script missed on the program, restart server function is not supported";
+        String STOP_SERVER_SCRIPT_NAME = "stop_server.sh";
+        String CHMOD_EXECUTE_PERMISSIONS_COMMAND = "chmod +x ./" + STOP_SERVER_SCRIPT_NAME;
+        String STOP_SERVER_SCRIPT_MISSED_MESSAGE = "script missed on the program, restart server function is not supported";
     }
 
     public interface Boiler {

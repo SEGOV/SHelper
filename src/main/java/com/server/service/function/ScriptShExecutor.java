@@ -37,7 +37,11 @@ public class ScriptShExecutor {
 
         List<String> commands = new ArrayList<>();
         commands.add("cd " + SERVER_PATH);
-        commands.add("sh " + commandName);
+        if(commandName.contains(".sh")) {
+            commands.add("sh " + commandName);
+        } else {
+            commands.add(commandName);
+        }
         try {
             Channel channel = getChannel();
             functionController.consoleAppendText("Sending commands...");
